@@ -1,0 +1,2607 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriRent - Smart Farm Machinery & Equipment Rental Platform</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS with custom configuration -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        darkgreen: {
+                            950: '#05150c',
+                            900: '#0a2616',
+                            800: '#0f3820',
+                            700: '#16502e',
+                            600: '#1f6d3f',
+                        },
+                        lightgreen: {
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                        },
+                        earth: {
+                            400: '#fbbf24',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                            700: '#b45309',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #05150c;
+            color: #ecfdf5;
+            overflow-x: hidden;
+        }
+        h1, h2, h3, h4, .font-display {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* Glassmorphism Styles */
+        .glow-border {
+            box-shadow: 0 0 25px rgba(74, 222, 128, 0.12);
+            border: 1px solid rgba(74, 222, 128, 0.22);
+        }
+        .glow-border:hover {
+            box-shadow: 0 0 35px rgba(74, 222, 128, 0.3);
+            border-color: rgba(74, 222, 128, 0.5);
+        }
+        .glow-card {
+            background: rgba(15, 56, 32, 0.65);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(134, 239, 172, 0.18);
+        }
+        .glow-card:hover {
+            border-color: rgba(74, 222, 128, 0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.6), 0 0 25px rgba(74, 222, 128, 0.15);
+        }
+        
+        .glass-panel {
+            background: rgba(10, 38, 22, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(134, 239, 172, 0.25);
+        }
+
+        .bg-grid-pattern {
+            background-image: radial-gradient(rgba(74, 222, 128, 0.12) 1px, transparent 1px);
+            background-size: 28px 28px;
+        }
+
+        /* Scroll Reveal Animation */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .scroll-reveal.reveal-active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Shimmer CTA animation */
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        .shimmer-btn {
+            background: linear-gradient(90deg, #4ade80 0%, #86efac 50%, #4ade80 100%);
+            background-size: 200% 100%;
+            animation: shimmer 4s infinite linear;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #05150c;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #16502e;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #22c55e;
+        }
+    </style>
+</head>
+
+<body class="bg-darkgreen-950 text-emerald-50 antialiased selection:bg-lightgreen-400 selection:text-darkgreen-950 bg-grid-pattern">
+
+    <!-- ================= HEADER & STICKY NAV ================= -->
+    <header class="sticky top-0 z-50 bg-darkgreen-950/90 backdrop-blur-md border-b border-lightgreen-400/20 shadow-xl shadow-black/50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
+
+            <!-- Logo -->
+            <a href="#home" class="flex items-center gap-3 group">
+                <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-lightgreen-400 to-emerald-600 flex items-center justify-center text-darkgreen-950 text-2xl font-bold shadow-lg shadow-lightgreen-400/20 group-hover:scale-105 transition-transform duration-300">
+                    🚜
+                </div>
+                <div>
+                    <h1 class="text-2xl font-extrabold tracking-tight text-white flex items-center gap-1 font-display">
+                        Agri<span class="text-lightgreen-400">Rent</span>
+                        <span id="role-pill" class="text-[10px] uppercase font-bold tracking-widest bg-lightgreen-400/20 text-lightgreen-300 px-2 py-0.5 rounded-full border border-lightgreen-400/30">
+                            FARMER
+                        </span>
+                    </h1>
+                    <p class="text-lightgreen-300/80 text-[11px] font-medium tracking-wide">
+                        Smart Farm Machinery Marketplace
+                    </p>
+                </div>
+            </a>
+
+            <!-- Dynamic Role-Based Navigation -->
+            <nav class="hidden lg:block bg-darkgreen-900/80 px-6 py-2 rounded-full border border-lightgreen-400/20 shadow-inner">
+                <ul id="nav-links" class="flex items-center gap-6 text-sm font-semibold tracking-wide">
+                    <!-- Loaded dynamically via JavaScript based on role -->
+                </ul>
+            </nav>
+
+            <!-- Right Header Controls -->
+            <div class="flex items-center gap-3">
+                <!-- Role Switcher Button -->
+                <button onclick="scrollToRoleSelector()" class="flex items-center gap-2 bg-darkgreen-900 border border-lightgreen-400/40 hover:border-lightgreen-400 text-lightgreen-300 px-3.5 py-1.5 rounded-full text-xs font-extrabold transition-all shadow-md">
+                    <span>🔄 Role:</span>
+                    <span id="current-role-label" class="text-white font-black uppercase">Farmer</span>
+                </button>
+
+                <!-- Favourites Drawer Trigger -->
+                <button onclick="openFavouritesModal()" class="flex items-center gap-1.5 bg-darkgreen-900 border border-lightgreen-400/30 hover:border-lightgreen-400 text-lightgreen-300 px-3 py-1.5 rounded-full text-xs font-bold transition-all">
+                    <span>❤️</span>
+                    <span id="fav-badge" class="bg-lightgreen-400 text-darkgreen-950 w-5 h-5 rounded-full flex items-center justify-center text-[11px] font-black">0</span>
+                </button>
+
+                <!-- Compare Trigger -->
+                <button id="compare-counter-btn" onclick="openCompareModal()" class="hidden sm:flex items-center gap-2 bg-darkgreen-900 border border-lightgreen-400/30 hover:border-lightgreen-400 text-lightgreen-300 px-3 py-1.5 rounded-full text-xs font-bold transition-all">
+                    <span>⚖️</span>
+                    <span id="compare-badge" class="bg-lightgreen-400 text-darkgreen-950 w-5 h-5 rounded-full flex items-center justify-center text-[11px] font-extrabold">0</span>
+                </button>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="lg:hidden w-10 h-10 rounded-xl bg-darkgreen-900 border border-lightgreen-400/30 flex items-center justify-center text-lightgreen-400 hover:bg-darkgreen-800 transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+
+        </div>
+
+        <!-- Mobile Slide-out Menu -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-darkgreen-950/95 border-b border-lightgreen-400/20 px-6 py-5 space-y-4 backdrop-blur-xl">
+            <div id="mobile-nav-links" class="space-y-3 text-sm font-semibold">
+                <!-- Rendered dynamically -->
+            </div>
+        </div>
+    </header>
+
+
+    <!-- ================= MAIN CONTENT ================= -->
+    <main>
+
+        <!-- HERO SECTION -->
+        <section id="home" class="relative overflow-hidden bg-gradient-to-b from-darkgreen-950 via-darkgreen-900 to-darkgreen-950 py-16 md:py-20 border-b border-lightgreen-400/10">
+            <!-- Background Glow Effects -->
+            <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[450px] bg-lightgreen-400/10 rounded-full blur-[130px] pointer-events-none"></div>
+            <div class="absolute bottom-0 right-0 w-96 h-96 bg-earth-500/10 rounded-full blur-[110px] pointer-events-none"></div>
+            
+            <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-12 gap-12 items-center relative z-10">
+
+                <!-- Hero Text -->
+                <div class="md:col-span-7 space-y-6 scroll-reveal">
+
+                    <div class="inline-flex items-center gap-2.5 bg-darkgreen-800/90 border border-lightgreen-400/40 text-lightgreen-300 px-4 py-2 rounded-full text-xs md:text-sm font-semibold tracking-wide shadow-md">
+                        <span class="w-2.5 h-2.5 rounded-full bg-lightgreen-400 animate-pulse"></span>
+                        🌱 Next-Gen AgriTech Two-Sided Marketplace
+                        <span class="bg-earth-500 text-darkgreen-950 font-extrabold text-[10px] px-2 py-0.5 rounded-md uppercase">Farmer & Owner Portal</span>
+                    </div>
+
+                    <h2 class="text-4xl sm:text-5xl md:text-6xl font-black text-white leading-tight font-display tracking-tight">
+                        Empowering Farmers & <br class="hidden sm:inline">
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-lightgreen-300 via-lightgreen-400 to-earth-400">
+                            Machine Owners
+                        </span>
+                    </h2>
+
+                    <p class="text-lg md:text-xl text-emerald-200/90 font-normal leading-relaxed max-w-2xl">
+                        Find and rent high-performance farm equipment or list your machinery to earn steady rental income across 50+ regional hubs.
+                    </p>
+
+                    <!-- CTA Buttons -->
+                    <div class="pt-2 flex flex-wrap gap-4 items-center">
+
+                        <a href="#role-selector" class="shimmer-btn text-darkgreen-950 px-8 py-4 rounded-xl font-extrabold text-lg shadow-xl shadow-lightgreen-400/25 transition-all duration-300 transform hover:-translate-y-1 flex items-center gap-3">
+                            <span>👥 Choose Your Role</span>
+                        </a>
+
+                        <button onclick="switchRole('owner'); scrollToSection('owner-dashboard');" class="bg-darkgreen-800/90 hover:bg-darkgreen-700 text-lightgreen-300 border border-lightgreen-400/40 px-8 py-4 rounded-xl font-bold text-lg shadow-lg backdrop-blur-md transition-all duration-300 transform hover:-translate-y-1 flex items-center gap-3">
+                            <span>🚜 List Machinery (+Earn)</span>
+                        </button>
+
+                    </div>
+
+                    <!-- Quick Stats Badges -->
+                    <div class="pt-8 grid grid-cols-2 sm:grid-cols-4 gap-4 border-t border-lightgreen-400/15 max-w-xl">
+                        <div>
+                            <p class="text-2xl md:text-3xl font-black text-lightgreen-400 font-display">500+</p>
+                            <p class="text-xs text-emerald-300/80 font-semibold">Verified Machines</p>
+                        </div>
+                        <div>
+                            <p class="text-2xl md:text-3xl font-black text-earth-400 font-display">₹2.5M+</p>
+                            <p class="text-xs text-emerald-300/80 font-semibold">Owner Earnings</p>
+                        </div>
+                        <div>
+                            <p class="text-2xl md:text-3xl font-black text-lightgreen-400 font-display">4.9★</p>
+                            <p class="text-xs text-emerald-300/80 font-semibold">Farmer Rating</p>
+                        </div>
+                        <div>
+                            <p class="text-2xl md:text-3xl font-black text-earth-400 font-display">100%</p>
+                            <p class="text-xs text-emerald-300/80 font-semibold">Verified Listings</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Hero Image Card -->
+                <div class="md:col-span-5 relative scroll-reveal">
+                    <div class="relative rounded-3xl overflow-hidden border-2 border-lightgreen-400/30 shadow-2xl shadow-lightgreen-950/90 group">
+                        <img src="images/hero.png" alt="Modern green tractor in lush agricultural field" class="w-full h-[450px] object-cover transform group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-darkgreen-950 via-darkgreen-950/20 to-transparent"></div>
+                        
+                        <!-- Floating Glass Card -->
+                        <div class="absolute bottom-6 left-6 right-6 p-5 rounded-2xl bg-darkgreen-900/90 backdrop-blur-md border border-lightgreen-400/35 text-white shadow-2xl">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3.5">
+                                    <div class="w-11 h-11 rounded-xl bg-lightgreen-400/20 text-lightgreen-300 flex items-center justify-center text-2xl border border-lightgreen-400/30">
+                                        🌾
+                                    </div>
+                                    <div>
+                                        <h3 class="font-bold text-lightgreen-200 text-base">Two-Sided Platform</h3>
+                                        <p class="text-xs text-emerald-300/80">Farmers Rent • Owners Earn</p>
+                                    </div>
+                                </div>
+                                <span class="bg-lightgreen-400 text-darkgreen-950 text-xs font-black px-3 py-1.5 rounded-full shadow-md animate-pulse">
+                                    Live Marketplace
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ================= 1. ROLE SELECTOR SECTION ================= -->
+        <section id="role-selector" class="py-16 bg-darkgreen-900/60 relative border-b border-lightgreen-400/15">
+            <div class="max-w-7xl mx-auto px-6">
+                
+                <div class="max-w-3xl mx-auto text-center space-y-3 mb-12 scroll-reveal">
+                    <span class="bg-lightgreen-400/20 text-lightgreen-300 text-xs font-extrabold px-4 py-1.5 rounded-full border border-lightgreen-400/40 uppercase tracking-widest">
+                        Choose Your User Experience
+                    </span>
+                    <h2 class="text-3xl md:text-5xl font-extrabold text-white font-display">
+                        How are you using FarmRent?
+                    </h2>
+                    <p class="text-emerald-200/80 text-base">
+                        Select your primary role to customize your workspace, navigation, dashboard, and tools.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+
+                    <!-- FARMER CARD -->
+                    <div id="role-card-farmer" onclick="switchRole('farmer')" class="glow-card p-8 rounded-3xl border-2 transition-all duration-300 cursor-pointer flex flex-col justify-between group relative overflow-hidden">
+                        <div class="space-y-5 relative z-10">
+                            <div class="flex items-center justify-between">
+                                <div class="w-16 h-16 rounded-2xl bg-lightgreen-400/20 border border-lightgreen-400/40 text-lightgreen-300 flex items-center justify-center text-4xl group-hover:scale-110 transition-transform">
+                                    👨‍🌾
+                                </div>
+                                <span class="role-badge-farmer bg-lightgreen-400 text-darkgreen-950 text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider hidden">
+                                    Active Role
+                                </span>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-black text-white font-display">FARMER</h3>
+                                <p class="text-emerald-200/80 text-sm mt-2 leading-relaxed">
+                                    Find and rent the right machinery for your farm. Access AI machine recommendations, compare rates, and book local tractor & harvester operators.
+                                </p>
+                            </div>
+                            <ul class="space-y-2 text-xs text-emerald-300/80 pt-2">
+                                <li class="flex items-center gap-2">✓ Smart AI Machinery Matcher</li>
+                                <li class="flex items-center gap-2">✓ Dynamic Rental Cost Calculator</li>
+                                <li class="flex items-center gap-2">✓ Favourites & Instant Booking History</li>
+                            </ul>
+                        </div>
+                        <div class="pt-6 mt-6 border-t border-lightgreen-400/15 relative z-10">
+                            <button class="w-full bg-lightgreen-400 hover:bg-lightgreen-300 text-darkgreen-950 font-black py-3.5 rounded-xl text-sm transition-all shadow-md flex items-center justify-center gap-2">
+                                <span>Continue as Farmer</span>
+                                <span>→</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- MACHINE OWNER CARD -->
+                    <div id="role-card-owner" onclick="switchRole('owner')" class="glow-card p-8 rounded-3xl border-2 transition-all duration-300 cursor-pointer flex flex-col justify-between group relative overflow-hidden">
+                        <div class="space-y-5 relative z-10">
+                            <div class="flex items-center justify-between">
+                                <div class="w-16 h-16 rounded-2xl bg-earth-400/20 border border-earth-400/40 text-earth-400 flex items-center justify-center text-4xl group-hover:scale-110 transition-transform">
+                                    🚜
+                                </div>
+                                <span class="role-badge-owner bg-earth-400 text-darkgreen-950 text-xs font-black px-3 py-1 rounded-full uppercase tracking-wider hidden">
+                                    Active Role
+                                </span>
+                            </div>
+                            <div>
+                                <h3 class="text-2xl font-black text-white font-display">MACHINE OWNER</h3>
+                                <p class="text-emerald-200/80 text-sm mt-2 leading-relaxed">
+                                    List your agricultural machinery and earn by renting it to local farmers. Manage requests, track earnings, and control availability.
+                                </p>
+                            </div>
+                            <ul class="space-y-2 text-xs text-emerald-300/80 pt-2">
+                                <li class="flex items-center gap-2">✓ "+ List Machinery" Form with Geolocation</li>
+                                <li class="flex items-center gap-2">✓ Incoming Rental Requests Accept/Reject</li>
+                                <li class="flex items-center gap-2">✓ Earnings Analytics & Monthly Revenue Chart</li>
+                            </ul>
+                        </div>
+                        <div class="pt-6 mt-6 border-t border-earth-400/20 relative z-10">
+                            <button class="w-full bg-earth-400 hover:bg-earth-500 text-darkgreen-950 font-black py-3.5 rounded-xl text-sm transition-all shadow-md flex items-center justify-center gap-2">
+                                <span>Continue as Machine Owner</span>
+                                <span>→</span>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ================= 2. MACHINE OWNER DASHBOARD ================= -->
+        <section id="owner-dashboard" class="py-16 bg-darkgreen-950 border-b border-lightgreen-400/10 hidden">
+            <div class="max-w-7xl mx-auto px-6 space-y-12">
+
+                <!-- Owner Welcome & Listing Action Header -->
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 bg-gradient-to-r from-darkgreen-900 via-darkgreen-800 to-darkgreen-900 p-8 rounded-3xl border-2 border-earth-400/30 shadow-2xl">
+                    <div class="space-y-2">
+                        <span class="bg-earth-400/20 text-earth-400 text-xs font-black px-3 py-1 rounded-full border border-earth-400/30 uppercase tracking-wider">
+                            Owner Portal Active
+                        </span>
+                        <h2 class="text-3xl font-black text-white font-display">Machine Owner Dashboard</h2>
+                        <p class="text-xs text-emerald-200/80">Manage your active fleet, review farmer rental requests, and monitor revenues.</p>
+                    </div>
+
+                    <button onclick="openAddMachineModal()" class="bg-gradient-to-r from-earth-400 to-earth-500 hover:from-earth-500 hover:to-earth-600 text-darkgreen-950 font-black px-6 py-4 rounded-xl text-sm shadow-xl transition-all transform hover:scale-105 flex items-center gap-2">
+                        <span class="text-xl">+</span>
+                        <span>List Your Machinery</span>
+                    </button>
+                </div>
+
+                <!-- 6. Owner Earnings Metrics & Chart -->
+                <div class="grid lg:grid-cols-12 gap-8 items-start">
+                    
+                    <!-- Metrics Overview Cards -->
+                    <div class="lg:col-span-5 grid sm:grid-cols-2 gap-4">
+                        <div class="glow-card p-6 rounded-2xl border-l-4 border-l-earth-400">
+                            <span class="text-xs text-emerald-300/70 block uppercase font-bold">Total Earnings</span>
+                            <span class="text-3xl font-black text-earth-400 font-display mt-1 block" id="owner-total-earnings">₹25,400</span>
+                            <span class="text-[11px] text-lightgreen-400 mt-2 block">↑ 18% from last month</span>
+                        </div>
+
+                        <div class="glow-card p-6 rounded-2xl border-l-4 border-l-lightgreen-400">
+                            <span class="text-xs text-emerald-300/70 block uppercase font-bold">Active Rentals</span>
+                            <span class="text-3xl font-black text-lightgreen-400 font-display mt-1 block" id="owner-active-rentals">4</span>
+                            <span class="text-[11px] text-emerald-300/70 mt-2 block">In-field right now</span>
+                        </div>
+
+                        <div class="glow-card p-6 rounded-2xl border-l-4 border-l-blue-400">
+                            <span class="text-xs text-emerald-300/70 block uppercase font-bold">Completed Rentals</span>
+                            <span class="text-3xl font-black text-blue-400 font-display mt-1 block" id="owner-completed-rentals">18</span>
+                            <span class="text-[11px] text-emerald-300/70 mt-2 block">100% payout settled</span>
+                        </div>
+
+                        <div class="glow-card p-6 rounded-2xl border-l-4 border-l-yellow-400">
+                            <span class="text-xs text-emerald-300/70 block uppercase font-bold">Average Rating</span>
+                            <span class="text-3xl font-black text-yellow-400 font-display mt-1 block flex items-center gap-1">
+                                ⭐ 4.8
+                            </span>
+                            <span class="text-[11px] text-emerald-300/70 mt-2 block">Based on 32 reviews</span>
+                        </div>
+                    </div>
+
+                    <!-- Earnings Chart Canvas -->
+                    <div class="lg:col-span-7 bg-darkgreen-900/90 border border-lightgreen-400/20 p-6 rounded-3xl space-y-4">
+                        <div class="flex items-center justify-between">
+                            <h3 class="font-extrabold text-white text-base font-display">📈 Rental Revenue Performance</h3>
+                            <span class="text-xs text-emerald-300/70">Monthly Income Trend (2026)</span>
+                        </div>
+                        <div class="relative h-56 w-full">
+                            <canvas id="earnings-chart" class="w-full h-full"></canvas>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- 4. My Machinery Catalog (Owner Listings) -->
+                <div class="space-y-6">
+                    <div class="flex items-center justify-between border-b border-lightgreen-400/20 pb-4">
+                        <div>
+                            <h3 class="text-2xl font-black text-white font-display">My Machinery Listings</h3>
+                            <p class="text-xs text-emerald-300/70">Equipment published under your owner account.</p>
+                        </div>
+                        <span class="bg-lightgreen-400/20 text-lightgreen-300 text-xs font-bold px-3 py-1 rounded-full border border-lightgreen-400/30" id="owner-listings-count">
+                            4 Listed Machines
+                        </span>
+                    </div>
+
+                    <div id="owner-machinery-grid" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <!-- Rendered dynamically by JS -->
+                    </div>
+                </div>
+
+                <!-- 5. Incoming Rental Requests Section -->
+                <div class="space-y-6 pt-6">
+                    <div class="flex items-center justify-between border-b border-lightgreen-400/20 pb-4">
+                        <div>
+                            <h3 class="text-2xl font-black text-white font-display flex items-center gap-2">
+                                <span>📩 Incoming Rental Requests</span>
+                                <span id="requests-pending-badge" class="bg-earth-400 text-darkgreen-950 text-xs font-black px-2.5 py-0.5 rounded-full">
+                                    2 Pending
+                                </span>
+                            </h3>
+                            <p class="text-xs text-emerald-300/70">Review booking requests from nearby farmers. Accept to lock machine dates.</p>
+                        </div>
+                    </div>
+
+                    <div id="owner-requests-list" class="grid md:grid-cols-2 gap-6">
+                        <!-- Rendered dynamically by JS -->
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- ================= FARMER MY BOOKINGS SECTION ================= -->
+        <section id="farmer-bookings-section" class="py-16 bg-darkgreen-950 border-b border-lightgreen-400/10">
+            <div class="max-w-7xl mx-auto px-6 space-y-6">
+                <div class="flex items-center justify-between border-b border-lightgreen-400/20 pb-4">
+                    <div>
+                        <span class="text-lightgreen-400 font-bold text-xs tracking-widest uppercase bg-darkgreen-900 px-3 py-1 rounded-full border border-lightgreen-400/30">
+                            Farmer Rental Dashboard
+                        </span>
+                        <h2 class="text-3xl font-extrabold text-white font-display mt-2">My Machinery Bookings</h2>
+                    </div>
+                    <span class="text-xs text-emerald-300/70">Stored via Local Storage</span>
+                </div>
+
+                <div id="farmer-bookings-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Rendered dynamically -->
+                </div>
+            </div>
+        </section>
+
+
+        <!-- WHY AGRIRENT (ABOUT) -->
+        <section id="about" class="py-20 bg-darkgreen-950 relative border-b border-lightgreen-400/10">
+            <div class="max-w-7xl mx-auto px-6">
+
+                <div class="max-w-3xl mx-auto text-center space-y-4 scroll-reveal">
+                    <span class="text-lightgreen-400 font-bold text-xs tracking-widest uppercase bg-darkgreen-900 px-4 py-1.5 rounded-full border border-lightgreen-400/30">
+                        Designed for Indian Farming Community
+                    </span>
+                    <h2 class="text-3xl md:text-5xl font-extrabold text-white font-display">
+                        Why Farmers Choose <span class="text-lightgreen-400">AgriRent</span>
+                    </h2>
+                    <p class="text-emerald-200/80 text-lg leading-relaxed">
+                        AgriRent connects farmers directly with local machinery owners through an easy-to-use digital platform. Our smart AI guides you to the right tools based on crop type, land size, activity, budget, and location.
+                    </p>
+                </div>
+
+                <!-- Feature Cards -->
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-16">
+
+                    <!-- Card 1 -->
+                    <div class="glow-card p-8 rounded-2xl transition-all duration-300 flex flex-col justify-between group scroll-reveal">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-lightgreen-400/10 border border-lightgreen-400/30 text-lightgreen-400 flex items-center justify-center text-3xl mb-6 group-hover:bg-lightgreen-400 group-hover:text-darkgreen-950 transition-all duration-300">
+                                📍
+                            </div>
+                            <h3 class="text-xl font-bold text-white font-display">
+                                Nearby Machinery Hubs
+                            </h3>
+                            <p class="mt-3 text-emerald-200/70 text-sm leading-relaxed">
+                                Discover high-performance agricultural equipment available within your immediate village or district radius (1-10 km).
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="glow-card p-8 rounded-2xl transition-all duration-300 flex flex-col justify-between group scroll-reveal">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-lightgreen-400/10 border border-lightgreen-400/30 text-lightgreen-400 flex items-center justify-center text-3xl mb-6 group-hover:bg-lightgreen-400 group-hover:text-darkgreen-950 transition-all duration-300">
+                                💰
+                            </div>
+                            <h3 class="text-xl font-bold text-white font-display">
+                                Transparent Fair Rates
+                            </h3>
+                            <p class="mt-3 text-emerald-200/70 text-sm leading-relaxed">
+                                Compare transparent daily/hourly rental rates with zero hidden charges. Save up to 40% on farm operational costs.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="glow-card p-8 rounded-2xl transition-all duration-300 flex flex-col justify-between group scroll-reveal">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-lightgreen-400/10 border border-lightgreen-400/30 text-lightgreen-400 flex items-center justify-center text-3xl mb-6 group-hover:bg-lightgreen-400 group-hover:text-darkgreen-950 transition-all duration-300">
+                                🤖
+                            </div>
+                            <h3 class="text-xl font-bold text-white font-display">
+                                AI Smart Advisor
+                            </h3>
+                            <p class="mt-3 text-emerald-200/70 text-sm leading-relaxed">
+                                Get intelligent machinery recommendations customized specifically for your crop season and farm land acreage.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="glow-card p-8 rounded-2xl transition-all duration-300 flex flex-col justify-between group scroll-reveal">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-lightgreen-400/10 border border-lightgreen-400/30 text-lightgreen-400 flex items-center justify-center text-3xl mb-6 group-hover:bg-lightgreen-400 group-hover:text-darkgreen-950 transition-all duration-300">
+                                📅
+                            </div>
+                            <h3 class="text-xl font-bold text-white font-display">
+                                Instant Booking & Drivers
+                            </h3>
+                            <p class="mt-3 text-emerald-200/70 text-sm leading-relaxed">
+                                Reserve slots for sowing or harvest dates. Option to include trained tractor & harvester operators.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- MACHINERY CATALOG SECTION -->
+        <section id="machines" class="py-20 bg-gradient-to-b from-darkgreen-950 via-darkgreen-900 to-darkgreen-950 relative border-b border-lightgreen-400/10">
+            <div class="max-w-7xl mx-auto px-6">
+
+                <!-- Header + Filter Row -->
+                <div class="space-y-6 scroll-reveal">
+                    <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+                        <div>
+                            <span class="text-lightgreen-400 font-bold text-xs tracking-widest uppercase bg-darkgreen-900 px-4 py-1.5 rounded-full border border-lightgreen-400/30">
+                                Verified Agricultural Fleet
+                            </span>
+                            <h2 class="text-3xl md:text-5xl font-extrabold text-white font-display mt-3">
+                                Available Farm Machinery
+                            </h2>
+                            <p class="text-emerald-200/80 text-base mt-2">
+                                Heavy-duty machinery thoroughly inspected for peak field performance and available for instant booking.
+                            </p>
+                        </div>
+
+                        <!-- Search Box -->
+                        <div class="w-full md:w-80 relative">
+                            <input type="text" id="catalog-search" onkeyup="filterCatalog()" placeholder="Search tractor, harvester..." class="w-full bg-darkgreen-950/90 border border-lightgreen-400/30 rounded-xl pl-11 pr-4 py-3 text-sm text-white placeholder-emerald-400/50 focus:outline-none focus:border-lightgreen-400 focus:ring-1 focus:ring-lightgreen-400 transition-all">
+                            <span class="absolute left-3.5 top-3.5 text-emerald-400">🔍</span>
+                        </div>
+                    </div>
+
+                    <!-- Filter Controls Toolbar -->
+                    <div class="p-4 rounded-2xl bg-darkgreen-900/90 border border-lightgreen-400/20 flex flex-wrap items-center justify-between gap-4">
+                        
+                        <!-- Category Buttons -->
+                        <div class="flex flex-wrap items-center gap-2" id="category-tabs">
+                            <button onclick="setCategory('all')" class="cat-btn active-cat bg-lightgreen-400 text-darkgreen-950 text-xs font-extrabold px-4 py-2 rounded-xl transition-all shadow-md">
+                                All Equipment
+                            </button>
+                            <button onclick="setCategory('tractors')" class="cat-btn bg-darkgreen-800 text-emerald-200 hover:text-white text-xs font-bold px-4 py-2 rounded-xl border border-lightgreen-400/20 transition-all">
+                                Tractors & Tillage
+                            </button>
+                            <button onclick="setCategory('harvesters')" class="cat-btn bg-darkgreen-800 text-emerald-200 hover:text-white text-xs font-bold px-4 py-2 rounded-xl border border-lightgreen-400/20 transition-all">
+                                Harvesters
+                            </button>
+                            <button onclick="setCategory('sowing')" class="cat-btn bg-darkgreen-800 text-emerald-200 hover:text-white text-xs font-bold px-4 py-2 rounded-xl border border-lightgreen-400/20 transition-all">
+                                Sowing & Planting
+                            </button>
+                            <button onclick="setCategory('spraying')" class="cat-btn bg-darkgreen-800 text-emerald-200 hover:text-white text-xs font-bold px-4 py-2 rounded-xl border border-lightgreen-400/20 transition-all">
+                                Spraying & Drones
+                            </button>
+                        </div>
+
+                        <!-- Price & Sorting Dropdowns -->
+                        <div class="flex items-center gap-3 text-xs w-full sm:w-auto justify-between sm:justify-end">
+                            <div class="flex items-center gap-2">
+                                <span class="text-emerald-300 font-medium">Max Rate:</span>
+                                <input type="range" id="price-range" min="500" max="5000" step="100" value="5000" oninput="updatePriceSlider(this.value)" class="accent-lightgreen-400 cursor-pointer w-24 sm:w-32">
+                                <span id="price-slider-val" class="font-bold text-lightgreen-400 min-w-[60px]">₹5,000/d</span>
+                            </div>
+
+                            <select id="sort-selector" onchange="filterCatalog()" class="bg-darkgreen-950 border border-lightgreen-400/30 rounded-lg px-3 py-1.5 text-xs text-emerald-200 focus:outline-none focus:border-lightgreen-400">
+                                <option value="popular">Sort: Popularity</option>
+                                <option value="price-low">Price: Low to High</option>
+                                <option value="price-high">Price: High to Low</option>
+                                <option value="rating">Highest Rated</option>
+                            </select>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Machinery Grid (Rendered dynamically) -->
+                <div id="machinery-grid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
+                    <!-- Dynamic machine cards will load here -->
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- INTERACTIVE "FIND THE RIGHT MACHINE" AI RECOMMENDATION SECTION -->
+        <section id="ai" class="py-20 bg-darkgreen-950 relative border-b border-lightgreen-400/10">
+            <div class="max-w-7xl mx-auto px-6">
+
+                <div class="max-w-3xl mx-auto text-center space-y-3 mb-12 scroll-reveal">
+                    <span class="bg-lightgreen-400/20 text-lightgreen-300 text-xs font-extrabold px-4 py-1.5 rounded-full border border-lightgreen-400/40 uppercase tracking-widest">
+                        ✨ Find the Right Machine
+                    </span>
+                    <h2 class="text-3xl md:text-5xl font-extrabold text-white font-display">
+                        AI Machinery Recommendation Engine
+                    </h2>
+                    <p class="text-emerald-200/80 text-base">
+                        Enter crop type, farm size, farming task, budget, duration, and location to receive precision recommendations with match percentages and short explanations.
+                    </p>
+                </div>
+
+                <div class="grid lg:grid-cols-12 gap-10 items-start">
+
+                    <!-- AI Form Input Card -->
+                    <div class="lg:col-span-5 bg-gradient-to-br from-darkgreen-900 via-darkgreen-800 to-darkgreen-900 rounded-3xl p-6 sm:p-8 border-2 border-lightgreen-400/40 shadow-2xl shadow-lightgreen-950/80 scroll-reveal">
+                        
+                        <div class="flex items-center gap-3 pb-6 border-b border-lightgreen-400/20">
+                            <div class="w-12 h-12 rounded-2xl bg-lightgreen-400/20 text-lightgreen-300 border border-lightgreen-400/40 flex items-center justify-center text-2xl">
+                                🤖
+                            </div>
+                            <div>
+                                <h3 class="font-extrabold text-xl text-white font-display">Kisan AI Match Engine</h3>
+                                <p class="text-xs text-emerald-300/80">Tailored to your soil, crop & location</p>
+                            </div>
+                        </div>
+
+                        <form id="ai-form" onsubmit="runAiMatch(event)" class="space-y-4 pt-6">
+
+                            <!-- 1. Crop Type -->
+                            <div>
+                                <label class="block text-xs font-extrabold text-lightgreen-300 uppercase tracking-wider mb-1">1. Crop Type</label>
+                                <select id="ai-crop" class="w-full bg-darkgreen-950 border border-lightgreen-400/30 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-lightgreen-400">
+                                    <option value="paddy">Rice / Paddy</option>
+                                    <option value="wheat">Wheat</option>
+                                    <option value="cotton">Cotton</option>
+                                    <option value="sugarcane">Sugarcane</option>
+                                    <option value="maize">Maize / Corn</option>
+                                    <option value="vegetables">Vegetables / Pulses</option>
+                                </select>
+                            </div>
+
+                            <!-- 2. Farm Size -->
+                            <div>
+                                <div class="flex justify-between items-center mb-1">
+                                    <label class="text-xs font-extrabold text-lightgreen-300 uppercase tracking-wider">2. Farm Size (Acres)</label>
+                                    <span id="acres-val" class="text-xs font-bold text-lightgreen-400 bg-darkgreen-950 px-2.5 py-0.5 rounded-md border border-lightgreen-400/30">5 Acres</span>
+                                </div>
+                                <input type="range" id="ai-acres" min="1" max="50" value="5" oninput="document.getElementById('acres-val').innerText = this.value + ' Acres'" class="w-full accent-lightgreen-400 cursor-pointer">
+                            </div>
+
+                            <!-- 3. Farming Activity -->
+                            <div>
+                                <label class="block text-xs font-extrabold text-lightgreen-300 uppercase tracking-wider mb-1">3. Farming Activity</label>
+                                <select id="ai-activity" class="w-full bg-darkgreen-950 border border-lightgreen-400/30 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-lightgreen-400">
+                                    <option value="tillage">Ploughing & Land Preparation (Tillage)</option>
+                                    <option value="sowing">Sowing & Seed Planting</option>
+                                    <option value="spraying">Crop Protection & Pesticide Spraying</option>
+                                    <option value="harvesting">Harvesting & Threshing</option>
+                                    <option value="hauling">Hauling & Crop Transport</option>
+                                </select>
+                            </div>
+
+                            <!-- 4. Budget -->
+                            <div>
+                                <div class="flex justify-between items-center mb-1">
+                                    <label class="text-xs font-extrabold text-lightgreen-300 uppercase tracking-wider">4. Max Daily Budget (₹)</label>
+                                    <span id="budget-val" class="text-xs font-bold text-earth-400 bg-darkgreen-950 px-2.5 py-0.5 rounded-md border border-earth-400/30">₹2,500 / day</span>
+                                </div>
+                                <input type="range" id="ai-budget" min="500" max="5000" step="250" value="2500" oninput="document.getElementById('budget-val').innerText = '₹' + Number(this.value).toLocaleString('en-IN') + ' / day'" class="w-full accent-earth-400 cursor-pointer">
+                            </div>
+
+                            <!-- 5. Duration & 6. Location -->
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block text-xs font-extrabold text-lightgreen-300 uppercase tracking-wider mb-1">5. Duration (Days)</label>
+                                    <input type="number" id="ai-duration" min="1" max="30" value="3" class="w-full bg-darkgreen-950 border border-lightgreen-400/30 rounded-xl px-3 py-2 text-white text-sm focus:outline-none focus:border-lightgreen-400">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-extrabold text-lightgreen-300 uppercase tracking-wider mb-1">6. Location</label>
+                                    <input type="text" id="ai-location" placeholder="e.g. Rampur" value="Rampur" class="w-full bg-darkgreen-950 border border-lightgreen-400/30 rounded-xl px-3 py-2 text-white text-sm focus:outline-none focus:border-lightgreen-400">
+                                </div>
+                            </div>
+
+                            <button type="submit" class="w-full shimmer-btn text-darkgreen-950 font-black py-3.5 rounded-xl text-base shadow-xl shadow-lightgreen-400/20 transition-all duration-300 transform hover:-translate-y-0.5 flex items-center justify-center gap-2 mt-4">
+                                <span>🤖 Generate AI Recommendation</span>
+                                <span>→</span>
+                            </button>
+
+                        </form>
+                    </div>
+
+                    <!-- AI Results Column -->
+                    <div class="lg:col-span-7 space-y-6">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-xl font-extrabold text-white font-display flex items-center gap-2">
+                                <span>Recommended for You</span>
+                            </h3>
+                            <span class="text-xs text-emerald-300/70">Algorithm: Multi-Factor Agronomic Match</span>
+                        </div>
+
+                        <!-- Recommendations Output Container -->
+                        <div id="ai-results-container" class="space-y-6">
+                            <!-- Recommendations rendered here -->
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- RENTAL COST CALCULATOR SECTION -->
+        <section id="calculator" class="py-20 bg-gradient-to-b from-darkgreen-950 via-darkgreen-900 to-darkgreen-950 relative border-b border-lightgreen-400/10">
+            <div class="max-w-7xl mx-auto px-6">
+
+                <div class="max-w-3xl mx-auto text-center space-y-3 mb-14 scroll-reveal">
+                    <span class="bg-earth-500/20 text-earth-400 text-xs font-extrabold px-4 py-1.5 rounded-full border border-earth-400/40 uppercase tracking-widest">
+                        Transparent Pricing Estimator
+                    </span>
+                    <h2 class="text-3xl md:text-5xl font-extrabold text-white font-display">
+                        Interactive Rental Cost Calculator
+                    </h2>
+                    <p class="text-emerald-200/80 text-base">
+                        Calculate exact rental expenses with operator options, delivery distance, and multi-day bulk discounts before booking.
+                    </p>
+                </div>
+
+                <div class="grid lg:grid-cols-12 gap-8 items-center max-w-5xl mx-auto scroll-reveal">
+
+                    <!-- Calculator Form Card -->
+                    <div class="lg:col-span-6 glow-card p-6 sm:p-8 rounded-3xl space-y-6">
+                        <h3 class="text-xl font-extrabold text-white font-display border-b border-lightgreen-400/20 pb-4 flex items-center gap-2">
+                            <span>🧮 Select Machinery & Details</span>
+                        </h3>
+
+                        <!-- Select Machine -->
+                        <div>
+                            <label class="block text-xs font-extrabold text-emerald-200 uppercase tracking-wider mb-2">Select Machine</label>
+                            <select id="calc-machine" onchange="calculateRentalCost()" class="w-full bg-darkgreen-950 border border-lightgreen-400/30 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-lightgreen-400">
+                                <option value="tractor" data-rate="1200">Heavy Duty Tractor (50 HP) — ₹1,200/day</option>
+                                <option value="harvester" data-rate="3500">Combine Harvester (75 HP) — ₹3,500/day</option>
+                                <option value="seeder" data-rate="800">Precision Seed Drill — ₹800/day</option>
+                                <option value="sprayer" data-rate="600">Power Crop Sprayer — ₹600/day</option>
+                                <option value="rotavator" data-rate="950">Rotary Tiller / Rotavator — ₹950/day</option>
+                                <option value="drone" data-rate="1500">Smart AI Drone Sprayer — ₹1,500/day</option>
+                            </select>
+                        </div>
+
+                        <!-- Rental Duration -->
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <label class="text-xs font-extrabold text-emerald-200 uppercase tracking-wider">Rental Duration</label>
+                                <span id="calc-days-display" class="text-xs font-bold text-lightgreen-400 bg-darkgreen-950 px-2.5 py-1 rounded-md border border-lightgreen-400/30">3 Days</span>
+                            </div>
+                            <input type="range" id="calc-days" min="1" max="20" value="3" oninput="calculateRentalCost()" class="w-full accent-lightgreen-400 cursor-pointer">
+                            <p class="text-[11px] text-emerald-300/60 mt-1">💡 5% discount for 3+ days, 10% discount for 7+ days.</p>
+                        </div>
+
+                        <!-- Add Operator Checkbox -->
+                        <div class="flex items-center justify-between p-4 rounded-xl bg-darkgreen-950 border border-lightgreen-400/20">
+                            <div>
+                                <p class="text-sm font-bold text-white">Include Certified Operator</p>
+                                <p class="text-xs text-emerald-300/70">Expert driver/operator provided (+₹500 / day)</p>
+                            </div>
+                            <input type="checkbox" id="calc-operator" onchange="calculateRentalCost()" class="w-5 h-5 accent-lightgreen-400 rounded cursor-pointer">
+                        </div>
+
+                        <!-- Delivery Distance -->
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <label class="text-xs font-extrabold text-emerald-200 uppercase tracking-wider">Delivery Distance (KM)</label>
+                                <span id="calc-dist-display" class="text-xs font-bold text-earth-400 bg-darkgreen-950 px-2.5 py-1 rounded-md border border-earth-400/30">5 KM</span>
+                            </div>
+                            <input type="range" id="calc-dist" min="0" max="30" value="5" oninput="calculateRentalCost()" class="w-full accent-earth-400 cursor-pointer">
+                            <p class="text-[11px] text-emerald-300/60 mt-1">Free delivery under 2 KM. ₹20 per KM thereafter.</p>
+                        </div>
+                    </div>
+
+                    <!-- Cost Output Breakdown Card -->
+                    <div class="lg:col-span-6 bg-gradient-to-br from-darkgreen-900 via-darkgreen-800 to-darkgreen-900 rounded-3xl p-6 sm:p-8 border-2 border-lightgreen-400/40 shadow-2xl space-y-6">
+                        <div class="flex items-center justify-between border-b border-lightgreen-400/20 pb-4">
+                            <h3 class="text-xl font-extrabold text-white font-display">Cost Breakdown Summary</h3>
+                            <span class="bg-lightgreen-400/20 text-lightgreen-300 text-xs font-bold px-3 py-1 rounded-full border border-lightgreen-400/30">Live Quote</span>
+                        </div>
+
+                        <div class="space-y-3.5 text-sm">
+                            <div class="flex justify-between text-emerald-200/80">
+                                <span>Base Rental Rate (<span id="out-days">3</span> days)</span>
+                                <span id="out-base" class="font-semibold text-white">₹3,600</span>
+                            </div>
+                            <div class="flex justify-between text-emerald-200/80">
+                                <span>Operator Charge</span>
+                                <span id="out-operator" class="font-semibold text-white">₹0</span>
+                            </div>
+                            <div class="flex justify-between text-emerald-200/80">
+                                <span>Transport / Delivery Fee</span>
+                                <span id="out-delivery" class="font-semibold text-white">₹60</span>
+                            </div>
+                            <div class="flex justify-between text-lightgreen-400 font-semibold">
+                                <span>Multi-Day Discount Applied</span>
+                                <span id="out-discount">-₹180</span>
+                            </div>
+                            
+                            <div class="pt-4 border-t border-lightgreen-400/30 flex justify-between items-center">
+                                <div>
+                                    <span class="text-xs text-emerald-300/80 block uppercase font-bold tracking-wider">Total Rental Payable</span>
+                                    <span class="text-xs text-emerald-400">Includes all local taxes & hub service</span>
+                                </div>
+                                <span id="out-total" class="text-3xl sm:text-4xl font-black text-lightgreen-400 font-display">₹3,480</span>
+                            </div>
+                        </div>
+
+                        <button onclick="openBookingFromCalc()" class="w-full bg-gradient-to-r from-lightgreen-400 via-lightgreen-300 to-lightgreen-400 text-darkgreen-950 font-black py-4 rounded-xl text-base shadow-xl shadow-lightgreen-400/20 transition-all duration-300 transform hover:scale-[1.02] flex items-center justify-center gap-2">
+                            <span>⚡ Proceed to Book Machine</span>
+                            <span>→</span>
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- FARMER REVIEWS & RATINGS SECTION -->
+        <section id="reviews" class="py-20 bg-darkgreen-950 relative border-b border-lightgreen-400/10">
+            <div class="max-w-7xl mx-auto px-6">
+
+                <div class="max-w-3xl mx-auto text-center space-y-3 mb-14 scroll-reveal">
+                    <span class="bg-lightgreen-400/20 text-lightgreen-300 text-xs font-extrabold px-4 py-1.5 rounded-full border border-lightgreen-400/40 uppercase tracking-widest">
+                        Trusted by 10,000+ Farmers Across India
+                    </span>
+                    <h2 class="text-3xl md:text-5xl font-extrabold text-white font-display">
+                        What Farmers Say About AgriRent
+                    </h2>
+                    <p class="text-emerald-200/80 text-base">
+                        Real feedback from agricultural community members who boosted farm productivity with our rental fleet.
+                    </p>
+                </div>
+
+                <!-- Rating Metrics Banner -->
+                <div class="p-6 rounded-2xl bg-darkgreen-900/80 border border-lightgreen-400/20 grid sm:grid-cols-3 gap-6 text-center max-w-4xl mx-auto mb-12 scroll-reveal">
+                    <div>
+                        <div class="text-3xl font-black text-lightgreen-400 font-display">4.9 / 5.0</div>
+                        <div class="text-xs text-emerald-300/80 mt-1">Overall Satisfaction Rate</div>
+                    </div>
+                    <div class="border-t sm:border-t-0 sm:border-l border-lightgreen-400/20 pt-4 sm:pt-0">
+                        <div class="text-3xl font-black text-earth-400 font-display">98%</div>
+                        <div class="text-xs text-emerald-300/80 mt-1">On-Time Machine Delivery</div>
+                    </div>
+                    <div class="border-t sm:border-t-0 sm:border-l border-lightgreen-400/20 pt-4 sm:pt-0">
+                        <div class="text-3xl font-black text-lightgreen-400 font-display">₹15,000+</div>
+                        <div class="text-xs text-emerald-300/80 mt-1">Avg. Season Cost Saved / Farmer</div>
+                    </div>
+                </div>
+
+                <!-- Reviews Grid -->
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 scroll-reveal">
+
+                    <!-- Review Card 1 -->
+                    <div class="glow-card p-6 rounded-2xl flex flex-col justify-between space-y-4">
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <div class="flex text-earth-400 text-sm">★★★★★</div>
+                                <span class="bg-lightgreen-400/20 text-lightgreen-300 text-[11px] font-bold px-2.5 py-0.5 rounded-full border border-lightgreen-400/30">Verified Renter</span>
+                            </div>
+                            <p class="text-emerald-100 text-sm leading-relaxed italic">
+                                "Rented the Combine Harvester during paddy season. Delivered straight to my Rampur field at 6 AM with a skilled operator. Finished harvesting 6 acres in one day!"
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-lightgreen-400/15 flex items-center justify-between">
+                            <div>
+                                <h4 class="font-bold text-white text-sm font-display">Ramesh Patel</h4>
+                                <p class="text-xs text-emerald-300/70">🌾 Paddy Farmer • Rampur Hub</p>
+                            </div>
+                            <span class="text-xl">🧑‍🌾</span>
+                        </div>
+                    </div>
+
+                    <!-- Review Card 2 -->
+                    <div class="glow-card p-6 rounded-2xl flex flex-col justify-between space-y-4">
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <div class="flex text-earth-400 text-sm">★★★★★</div>
+                                <span class="bg-lightgreen-400/20 text-lightgreen-300 text-[11px] font-bold px-2.5 py-0.5 rounded-full border border-lightgreen-400/30">Verified Renter</span>
+                            </div>
+                            <p class="text-emerald-100 text-sm leading-relaxed italic">
+                                "The AI Machine Recommendation selected the exact 50 HP tractor suitable for my heavy soil wheat land. Transparent pricing with zero hidden charges."
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-lightgreen-400/15 flex items-center justify-between">
+                            <div>
+                                <h4 class="font-bold text-white text-sm font-display">Gurpreet Singh</h4>
+                                <p class="text-xs text-emerald-300/70">🌾 Wheat Farmer • Green Valley</p>
+                            </div>
+                            <span class="text-xl">👨‍🌾</span>
+                        </div>
+                    </div>
+
+                    <!-- Review Card 3 -->
+                    <div class="glow-card p-6 rounded-2xl flex flex-col justify-between space-y-4">
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <div class="flex text-earth-400 text-sm">★★★★★</div>
+                                <span class="bg-lightgreen-400/20 text-lightgreen-300 text-[11px] font-bold px-2.5 py-0.5 rounded-full border border-lightgreen-400/30">Verified Renter</span>
+                            </div>
+                            <p class="text-emerald-100 text-sm leading-relaxed italic">
+                                "Booked the AI Drone Sprayer for 8 acres of vegetable land. Spraying was uniform, fast, and saved 30% on liquid pesticide usage. Highly recommended!"
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-lightgreen-400/15 flex items-center justify-between">
+                            <div>
+                                <h4 class="font-bold text-white text-sm font-display">Lakshmi Devi</h4>
+                                <p class="text-xs text-emerald-300/70">🥦 Vegetable Farmer • Kisan Kendra</p>
+                            </div>
+                            <span class="text-xl">👩‍🌾</span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- ================= FOOTER ================= -->
+    <footer id="contact" class="bg-darkgreen-950 text-emerald-200/80 border-t border-lightgreen-400/20">
+
+        <div class="max-w-7xl mx-auto px-6 py-16 grid md:grid-cols-4 gap-10">
+
+            <!-- About Column -->
+            <div class="md:col-span-2 space-y-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-lg bg-lightgreen-400 text-darkgreen-950 flex items-center justify-center font-black text-xl shadow-md">
+                        🚜
+                    </div>
+                    <h3 class="text-2xl font-extrabold text-white font-display">
+                        Agri<span class="text-lightgreen-400">Rent</span>
+                    </h3>
+                </div>
+                <p class="text-emerald-200/70 text-sm leading-relaxed max-w-md">
+                    India's leading smart AI-powered farm machinery rental network. Empowering farmers with affordable access to modern agricultural technology and equipment.
+                </p>
+            </div>
+
+            <!-- Quick Links -->
+            <div>
+                <h4 class="text-base font-bold text-white font-display mb-4 border-b border-lightgreen-400/20 pb-2">
+                    Quick Navigation
+                </h4>
+                <ul class="space-y-2.5 text-sm">
+                    <li><a href="#home" class="hover:text-lightgreen-400 transition-colors">Home Overview</a></li>
+                    <li><a href="#role-selector" class="hover:text-lightgreen-400 transition-colors">Choose Role</a></li>
+                    <li><a href="#machines" class="hover:text-lightgreen-400 transition-colors">Machinery Fleet</a></li>
+                    <li><a href="#ai" class="hover:text-lightgreen-400 transition-colors">AI Match Assistant</a></li>
+                </ul>
+            </div>
+
+            <!-- Contact Information -->
+            <div>
+                <h4 class="text-base font-bold text-white font-display mb-4 border-b border-lightgreen-400/20 pb-2">
+                    Contact & Support
+                </h4>
+                <ul class="space-y-3 text-sm">
+                    <li class="flex items-start gap-2">
+                        <span>📧</span>
+                        <span class="text-emerald-100">support@agrirent.com</span>
+                    </li>
+                    <li class="flex items-start gap-2">
+                        <span>📞</span>
+                        <span class="text-emerald-100">+91 7736073256</span>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="border-t border-lightgreen-400/10 py-6 text-center text-xs text-emerald-300/60">
+            <p>© 2026 AgriRent Platform. All rights reserved. Built for Full-Stack AgriTech Innovation.</p>
+        </div>
+
+    </footer>
+
+
+    <!-- ================= 3. "+ LIST YOUR MACHINERY" MODAL (OWNER) ================= -->
+    <div id="add-machine-modal" class="fixed inset-0 z-50 hidden bg-black/85 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-darkgreen-950 border-2 border-earth-400/40 rounded-3xl max-w-2xl w-full p-6 sm:p-8 space-y-6 shadow-2xl relative my-8">
+            <button onclick="closeAddMachineModal()" class="absolute top-5 right-5 text-emerald-400 hover:text-white text-2xl font-bold">✕</button>
+
+            <div class="border-b border-lightgreen-400/20 pb-4">
+                <span class="bg-earth-400/20 text-earth-400 text-xs font-black px-3 py-1 rounded-full border border-earth-400/30 uppercase">
+                    Machine Owner Portal
+                </span>
+                <h3 class="text-2xl font-black text-white font-display mt-2">Add Your Machinery</h3>
+                <p class="text-xs text-emerald-300/70">Fill machine specifications to list it on AgriRent for farmers in your district.</p>
+            </div>
+
+            <form onsubmit="publishMachinery(event)" class="space-y-6">
+
+                <!-- 1. Basic Information -->
+                <div class="space-y-3">
+                    <h4 class="text-xs font-extrabold text-earth-400 uppercase tracking-wider border-b border-lightgreen-400/10 pb-1">1. Basic Information</h4>
+                    <div class="grid sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-xs font-semibold text-emerald-200 mb-1">Machine Name *</label>
+                            <input type="text" id="add-name" required placeholder="e.g. John Deere 5050D Tractor" class="w-full bg-darkgreen-900 border border-lightgreen-400/30 rounded-xl px-3 py-2 text-white text-xs focus:outline-none focus:border-earth-400">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-emerald-200 mb-1">Machine Category *</label>
+                            <select id="add-category" required class="w-full bg-darkgreen-900 border border-lightgreen-400/30 rounded-xl px-3 py-2 text-white text-xs focus:outline-none focus:border-earth-400">
+                                <option value="tractors">Tractor & Tillage</option>
+                                <option value="harvesters">Combine Harvester</option>
+                                <option value="sowing">Sowing & Planting</option>
+                                <option value="spraying">Sprayer & Drone</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-emerald-200 mb-1">Brand</label>
+                            <input type="text" id="add-brand" placeholder="e.g. Mahindra / John Deere" class="w-full bg-darkgreen-900 border border-lightgreen-400/30 rounded-xl px-3 py-2 text-white text-xs focus:outline-none focus:border-earth-400">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-emerald-200 mb-1">Model & Year</label>
+                            <input type="text" id="add-model" placeholder="e.g. 5050D (2024)" class="w-full bg-darkgreen-900 border border-lightgreen-400/30 rounded-xl px-3 py-2 text-white text-xs focus:outline-none focus:border-earth-400">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Technical Details -->
+                <div class="space-y-3">
+                    <h4 class="text-xs font-extrabold text-earth-400 uppercase tracking-wider border-b border-lightgreen-400/10 pb-1">2. Technical Specifications</h4>
+                    <div class="grid sm:grid-cols-3 gap-3">
+                        <div>
+                            <label class="block text-xs font-semibold text-emerald-200 mb-1">Horsepower (HP)</label>
+                            <input type="text" id="add-hp" placeholder="e.g. 50 HP" class="w-full bg-darkgreen-900 border border-lightgreen-400/30 rounded-xl px-3 py-2 text-white text-xs focus:outline-none focus:border-earth-400">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-emerald-200 mb-1">Fuel Type</label>
+                            <select id="add-fuel" class="w-full bg-darkgreen-900 border border-lightgreen-400/30 rounded-xl px-3 py-2 text-white text-xs focus:outline-none focus:border-earth-400">
+                                <option value="Diesel">Diesel</option>
+                                <option value="Petrol">Petrol</option>
+                                <option value="Electric/Battery">Electric / Battery</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-emerald-200 mb-1">Fuel Consumption</label>
+                            <input type="text" id="add-fuel-rate" placeholder="e.g. 4.5 L/hr" class="w-full bg-darkgreen-900 border border-lightgreen-400/30 rounded-xl px-3 py-2 text-white text-xs focus:outline-none focus:border-earth-400">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Rental Pricing -->
+                <div class="space-y-3">
+                    <h4 class="text-xs font-extrabold text-earth-400 uppercase tracking-wider border-b border-lightgreen-400/10 pb-1">3. Rental Pricing & Terms</h4>
+                    <div class="grid sm:grid-cols-3 gap-3">
+                        <div>
+                            <label class="block text-xs font-semibold text-emerald-200 mb-1">Rental Price / Day (₹) *</label>
+                            <input type="number" id="add-daily-rate" required placeholder="e.g. 1400" class="w-full bg-darkgreen-900 border border-lightgreen-400/30 rounded-xl px-3 py-2 text-white text-xs focus:outline-none focus:border-earth-400">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-emerald-200 mb-1">Hourly Rate (₹)</label>
+                            <input type="number" id="add-hourly-rate" placeholder="e.g. 250" class="w-full bg-darkgreen-900 border border-lightgreen-400/30 rounded-xl px-3 py-2 text-white text-xs focus:outline-none focus:border-earth-400">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-emerald-200 mb-1">Security Deposit (₹)</label>
+                            <input type="number" id="add-deposit" placeholder="e.g. 2000" class="w-full bg-darkgreen-900 border border-lightgreen-400/30 rounded-xl px-3 py-2 text-white text-xs focus:outline-none focus:border-earth-400">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. Location & Geolocation -->
+                <div class="space-y-3">
+                    <div class="flex items-center justify-between border-b border-lightgreen-400/10 pb-1">
+                        <h4 class="text-xs font-extrabold text-earth-400 uppercase tracking-wider">4. Location Details</h4>
+                        <button type="button" onclick="useCurrentLocation()" class="text-[11px] bg-earth-400/20 text-earth-400 hover:bg-earth-400 hover:text-darkgreen-950 font-bold px-2.5 py-0.5 rounded-full border border-earth-400/30 transition-colors">
+                            📍 Use My Location
+                        </button>
+                    </div>
+                    <div class="grid sm:grid-cols-3 gap-3">
+                        <div>
+                            <label class="block text-xs font-semibold text-emerald-200 mb-1">Village / Hub Name</label>
+                            <input type="text" id="add-hub" placeholder="e.g. Rampur Hub" class="w-full bg-darkgreen-900 border border-lightgreen-400/30 rounded-xl px-3 py-2 text-white text-xs focus:outline-none focus:border-earth-400">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-emerald-200 mb-1">District / City</label>
+                            <input type="text" id="add-district" placeholder="e.g. Ludhiana" class="w-full bg-darkgreen-900 border border-lightgreen-400/30 rounded-xl px-3 py-2 text-white text-xs focus:outline-none focus:border-earth-400">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-emerald-200 mb-1">Distance tag (km)</label>
+                            <input type="text" id="add-dist-tag" placeholder="e.g. 2.5 km away" class="w-full bg-darkgreen-900 border border-lightgreen-400/30 rounded-xl px-3 py-2 text-white text-xs focus:outline-none focus:border-earth-400">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. Machine Image Upload -->
+                <div class="space-y-2">
+                    <label class="block text-xs font-semibold text-emerald-200">Machine Image *</label>
+                    <input type="file" id="add-image-file" accept="image/*" onchange="previewUploadImage(this)" class="w-full text-xs text-emerald-200 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-earth-400 file:text-darkgreen-950 hover:file:bg-earth-500 cursor-pointer">
+                    <div id="image-preview-container" class="hidden pt-2">
+                        <img id="image-preview-img" src="" alt="Preview" class="h-28 rounded-xl object-cover border border-earth-400/40">
+                    </div>
+                </div>
+
+                <!-- 6. Additional Features Checkboxes -->
+                <div class="space-y-2">
+                    <label class="block text-xs font-semibold text-emerald-200">Included Services & Features</label>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs">
+                        <label class="flex items-center gap-2 bg-darkgreen-900 p-2 rounded-lg border border-lightgreen-400/20 cursor-pointer">
+                            <input type="checkbox" id="add-feat-operator" class="accent-earth-400">
+                            <span>Operator Available</span>
+                        </label>
+                        <label class="flex items-center gap-2 bg-darkgreen-900 p-2 rounded-lg border border-lightgreen-400/20 cursor-pointer">
+                            <input type="checkbox" id="add-feat-delivery" class="accent-earth-400" checked>
+                            <span>Delivery Available</span>
+                        </label>
+                        <label class="flex items-center gap-2 bg-darkgreen-900 p-2 rounded-lg border border-lightgreen-400/20 cursor-pointer">
+                            <input type="checkbox" id="add-feat-fuel" class="accent-earth-400">
+                            <span>Fuel Included</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="pt-4 border-t border-lightgreen-400/20 flex gap-4">
+                    <button type="button" onclick="closeAddMachineModal()" class="w-1/3 bg-darkgreen-900 text-emerald-200 border border-lightgreen-400/20 font-bold py-3 rounded-xl text-xs">
+                        Cancel
+                    </button>
+                    <button type="submit" class="w-2/3 bg-gradient-to-r from-earth-400 to-earth-500 hover:from-earth-500 hover:to-earth-600 text-darkgreen-950 font-black py-3 rounded-xl text-xs shadow-lg">
+                        Publish Machinery Listing
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+
+    <!-- ================= FAVOURITES MODAL ================= -->
+    <div id="favourites-modal" class="fixed inset-0 z-50 hidden bg-black/85 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-darkgreen-950 border-2 border-lightgreen-400/40 rounded-3xl max-w-2xl w-full p-6 sm:p-8 space-y-6 shadow-2xl relative my-8">
+            <button onclick="closeFavouritesModal()" class="absolute top-5 right-5 text-emerald-400 hover:text-white text-2xl font-bold">✕</button>
+            <div class="border-b border-lightgreen-400/20 pb-4">
+                <h3 class="text-2xl font-extrabold text-white font-display flex items-center gap-2">
+                    <span>❤️ Saved Favourite Machinery</span>
+                </h3>
+                <p class="text-xs text-emerald-300/70">Your saved machinery items for quick comparison and booking.</p>
+            </div>
+
+            <div id="favourites-grid" class="grid sm:grid-cols-2 gap-4">
+                <!-- Rendered dynamically -->
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ================= FLOATING COMPARE DRAWER ================= -->
+    <div id="compare-floating-bar" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-40 hidden bg-darkgreen-900/95 border-2 border-lightgreen-400/50 rounded-full px-6 py-3 shadow-2xl backdrop-blur-xl flex items-center gap-4 text-white">
+        <span class="text-sm font-extrabold text-lightgreen-300" id="compare-bar-count">2 Machines Selected</span>
+        <button onclick="openCompareModal()" class="bg-lightgreen-400 text-darkgreen-950 font-black px-4 py-1.5 rounded-full text-xs hover:bg-lightgreen-300 transition-colors">
+            Compare Now →
+        </button>
+        <button onclick="clearComparison()" class="text-xs text-emerald-300 hover:text-white underline">
+            Clear
+        </button>
+    </div>
+
+
+    <!-- ================= MACHINERY COMPARISON MODAL ================= -->
+    <div id="compare-modal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-darkgreen-950 border-2 border-lightgreen-400/40 rounded-3xl max-w-4xl w-full p-6 sm:p-8 space-y-6 shadow-2xl relative my-8">
+            <button onclick="closeCompareModal()" class="absolute top-5 right-5 text-emerald-400 hover:text-white text-2xl font-bold">✕</button>
+            
+            <div class="border-b border-lightgreen-400/20 pb-4">
+                <h3 class="text-2xl font-extrabold text-white font-display flex items-center gap-2">
+                    <span>⚖️ Machinery Side-by-Side Comparison</span>
+                </h3>
+                <p class="text-xs text-emerald-300/70 mt-1">Compare technical specifications, fuel efficiency, and daily rental rates.</p>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table id="compare-table" class="w-full text-left border-collapse text-sm text-emerald-100">
+                    <!-- Populated dynamically by JS -->
+                </table>
+            </div>
+
+            <div class="text-right pt-4 border-t border-lightgreen-400/20">
+                <button onclick="closeCompareModal()" class="bg-darkgreen-800 border border-lightgreen-400/30 text-emerald-200 px-6 py-2.5 rounded-xl font-bold text-xs hover:bg-darkgreen-700">
+                    Close Comparison
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ================= INTERACTIVE BOOKING MODAL ================= -->
+    <div id="booking-modal" class="fixed inset-0 z-50 hidden bg-black/85 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-darkgreen-950 border-2 border-lightgreen-400/40 rounded-3xl max-w-lg w-full p-6 sm:p-8 space-y-6 shadow-2xl relative my-8">
+            <button onclick="closeBookingModal()" class="absolute top-5 right-5 text-emerald-400 hover:text-white text-2xl font-bold">✕</button>
+
+            <!-- Form State View -->
+            <div id="booking-form-view">
+                <div class="border-b border-lightgreen-400/20 pb-4 mb-6">
+                    <span class="bg-lightgreen-400/20 text-lightgreen-300 text-[11px] font-extrabold px-3 py-1 rounded-full border border-lightgreen-400/30 uppercase">
+                        Instant Slot Reservation
+                    </span>
+                    <h3 class="text-2xl font-extrabold text-white font-display mt-2" id="bm-title">Book Machine</h3>
+                    <p class="text-xs text-emerald-300/70" id="bm-subtitle">50 HP Heavy Duty Tractor • Rampur Hub</p>
+                </div>
+
+                <form onsubmit="submitBooking(event)" class="space-y-4">
+                    <input type="hidden" id="bm-machine-id">
+
+                    <div>
+                        <label class="block text-xs font-bold text-emerald-200 mb-1">Rental Start Date</label>
+                        <input type="date" id="bm-date" required class="w-full bg-darkgreen-900 border border-lightgreen-400/30 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-lightgreen-400">
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-emerald-200 mb-1">Duration (Days)</label>
+                            <input type="number" id="bm-duration" min="1" max="30" value="2" oninput="updateBookingSummary()" class="w-full bg-darkgreen-900 border border-lightgreen-400/30 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-lightgreen-400">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-emerald-200 mb-1">Operator Choice</label>
+                            <select id="bm-operator" onchange="updateBookingSummary()" class="w-full bg-darkgreen-900 border border-lightgreen-400/30 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-lightgreen-400">
+                                <option value="yes">Include Driver (+₹500/d)</option>
+                                <option value="no">Self-Driven / Own Driver</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-emerald-200 mb-1">Farmer Full Name</label>
+                        <input type="text" id="bm-name" required placeholder="e.g. Ramesh Patel" class="w-full bg-darkgreen-900 border border-lightgreen-400/30 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-lightgreen-400">
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-emerald-200 mb-1">Phone Number</label>
+                            <input type="tel" id="bm-phone" required placeholder="+91 9876543210" class="w-full bg-darkgreen-900 border border-lightgreen-400/30 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-lightgreen-400">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-emerald-200 mb-1">Village / District</label>
+                            <input type="text" id="bm-location" required placeholder="e.g. Rampur Village" class="w-full bg-darkgreen-900 border border-lightgreen-400/30 rounded-xl px-4 py-2.5 text-white text-sm focus:outline-none focus:border-lightgreen-400">
+                        </div>
+                    </div>
+
+                    <!-- Total Box -->
+                    <div class="p-4 rounded-xl bg-darkgreen-900 border border-lightgreen-400/20 flex items-center justify-between mt-4">
+                        <div>
+                            <span class="text-xs text-emerald-300/80 block">Estimated Total Cost</span>
+                            <span class="text-2xl font-black text-lightgreen-400 font-display" id="bm-total-cost">₹2,900</span>
+                        </div>
+                        <span class="text-xs text-lightgreen-300 bg-lightgreen-400/20 px-3 py-1 rounded-full border border-lightgreen-400/30 font-bold">Pay on Delivery</span>
+                    </div>
+
+                    <button type="submit" class="w-full shimmer-btn text-darkgreen-950 font-black py-3.5 rounded-xl text-base shadow-xl shadow-lightgreen-400/20 transition-all transform hover:-translate-y-0.5">
+                        Confirm Rental Reservation
+                    </button>
+                </form>
+            </div>
+
+            <!-- Receipt Confirmation View -->
+            <div id="booking-receipt-view" class="hidden text-center space-y-5 py-4">
+                <div class="w-16 h-16 rounded-full bg-lightgreen-400 text-darkgreen-950 flex items-center justify-center text-3xl mx-auto font-black shadow-lg shadow-lightgreen-400/30 animate-bounce">
+                    ✓
+                </div>
+                <div>
+                    <span class="text-xs font-extrabold text-lightgreen-400 tracking-wider uppercase bg-lightgreen-400/10 px-3 py-1 rounded-full border border-lightgreen-400/30">
+                        Booking Confirmed
+                    </span>
+                    <h3 class="text-2xl font-black text-white font-display mt-2">Reservation Successful!</h3>
+                    <p class="text-xs text-emerald-300/80 mt-1">Your machine dispatch request has been sent to the owner.</p>
+                </div>
+
+                <div class="bg-darkgreen-900 p-5 rounded-2xl border border-lightgreen-400/20 text-left text-xs space-y-2.5 text-emerald-100 font-mono">
+                    <div class="flex justify-between">
+                        <span class="text-emerald-400">Booking Ref ID:</span>
+                        <span id="rcpt-id" class="font-bold text-white">AGRI-2026-9821</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-emerald-400">Machine:</span>
+                        <span id="rcpt-machine" class="text-white">Heavy Duty Tractor</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-emerald-400">Renter Name:</span>
+                        <span id="rcpt-name" class="text-white">Ramesh Patel</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-emerald-400">Delivery Location:</span>
+                        <span id="rcpt-location" class="text-white">Rampur Village</span>
+                    </div>
+                    <div class="flex justify-between pt-2 border-t border-lightgreen-400/20">
+                        <span class="text-emerald-400">Total Payable:</span>
+                        <span id="rcpt-total" class="font-bold text-lightgreen-400 text-sm">₹2,900</span>
+                    </div>
+                </div>
+
+                <button onclick="closeBookingModal()" class="w-full bg-lightgreen-400 text-darkgreen-950 font-black py-3 rounded-xl text-sm shadow-md">
+                    Done
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- ================= FLOATING AI CHATBOT ================= -->
+    <button id="chatbot-trigger" onclick="toggleChatbot()" class="fixed bottom-6 right-6 z-40 bg-gradient-to-r from-lightgreen-400 via-lightgreen-300 to-lightgreen-400 text-darkgreen-950 p-4 rounded-full shadow-2xl hover:scale-110 transition-all duration-300 flex items-center gap-2 group border-2 border-darkgreen-950">
+        <span class="text-2xl animate-bounce">🤖</span>
+        <span class="font-black text-xs hidden sm:inline group-hover:inline">Kisan Mitra AI</span>
+        <span class="absolute -top-1 -right-1 w-3.5 h-3.5 bg-earth-400 rounded-full border-2 border-darkgreen-950 animate-ping"></span>
+    </button>
+
+    <div id="chatbot-drawer" class="fixed bottom-24 right-6 z-40 hidden w-[90vw] sm:w-96 h-[500px] bg-darkgreen-950/95 border-2 border-lightgreen-400/40 rounded-3xl shadow-2xl backdrop-blur-2xl flex flex-col overflow-hidden">
+        <div class="bg-gradient-to-r from-darkgreen-900 to-darkgreen-800 px-5 py-4 border-b border-lightgreen-400/20 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-lightgreen-400 text-darkgreen-950 flex items-center justify-center font-black text-lg">
+                    🤖
+                </div>
+                <div>
+                    <h4 class="font-extrabold text-white text-sm font-display">Kisan Mitra AI</h4>
+                    <p class="text-[10px] text-lightgreen-300 font-medium">Online • Smart Agri Advisor</p>
+                </div>
+            </div>
+            <button onclick="toggleChatbot()" class="text-emerald-400 hover:text-white font-bold">✕</button>
+        </div>
+
+        <div id="chat-messages" class="flex-1 p-4 overflow-y-auto space-y-3.5 text-xs text-emerald-100">
+            <div class="flex gap-2.5">
+                <span class="text-base">🤖</span>
+                <div class="bg-darkgreen-900/90 border border-lightgreen-400/20 p-3 rounded-2xl rounded-tl-none max-w-[85%] leading-relaxed">
+                    Namaste! 🙏 I am <strong>Kisan Mitra AI</strong>. How can I assist your farming or equipment listing today?
+                </div>
+            </div>
+        </div>
+
+        <div class="px-3 py-2 bg-darkgreen-900/60 border-t border-lightgreen-400/10 flex gap-2 overflow-x-auto no-scrollbar text-[11px]">
+            <button onclick="sendQuickPrompt('Best tractor for 5 acres paddy?')" class="bg-darkgreen-800 text-lightgreen-300 hover:bg-lightgreen-400 hover:text-darkgreen-950 px-2.5 py-1 rounded-full border border-lightgreen-400/20 whitespace-nowrap transition-colors">
+                🌾 Tractor for paddy?
+            </button>
+            <button onclick="sendQuickPrompt('How to list my tractor to earn money?')" class="bg-darkgreen-800 text-lightgreen-300 hover:bg-lightgreen-400 hover:text-darkgreen-950 px-2.5 py-1 rounded-full border border-lightgreen-400/20 whitespace-nowrap transition-colors">
+                🚜 List equipment?
+            </button>
+        </div>
+
+        <form onsubmit="handleChatSubmit(event)" class="p-3 bg-darkgreen-900 border-t border-lightgreen-400/20 flex gap-2">
+            <input type="text" id="chat-input" placeholder="Type farm equipment question..." class="flex-1 bg-darkgreen-950 border border-lightgreen-400/30 rounded-xl px-3 py-2 text-xs text-white placeholder-emerald-400/40 focus:outline-none focus:border-lightgreen-400">
+            <button type="submit" class="bg-lightgreen-400 hover:bg-lightgreen-300 text-darkgreen-950 px-4 py-2 rounded-xl font-bold text-xs shadow-md transition-colors">
+                Send
+            </button>
+        </form>
+    </div>
+
+
+    <!-- ================= JAVASCRIPT MASTER LOGIC ================= -->
+    <script>
+        // Storage Keys
+        const STORAGE_ROLE = 'agrirent_user_role';
+        const STORAGE_CUSTOM_MACHINES = 'agrirent_custom_machinery';
+        const STORAGE_FAVOURITES = 'agrirent_favourites';
+        const STORAGE_BOOKINGS = 'agrirent_bookings';
+        const STORAGE_REQUESTS = 'agrirent_rental_requests';
+
+        // Default Master Machinery Dataset
+        const DEFAULT_MACHINERY = [
+            {
+                id: 'tractor',
+                name: 'Heavy Duty Tractor',
+                category: 'tractors',
+                image: 'images/tractor.png',
+                dailyRate: 1200,
+                hourlyRate: 200,
+                status: 'Available Now',
+                statusBg: 'bg-lightgreen-400 text-darkgreen-950',
+                hp: '50 HP Engine',
+                fuel: '4.5 L/hr',
+                distance: '3.2 km away',
+                hub: 'Rampur Village Hub',
+                rating: 4.9,
+                reviews: 124,
+                tag: 'Tillage & Hauling',
+                description: 'High-torque 50+ HP diesel engine suitable for deep ploughing, disc harrowing, and heavy crop hauling.',
+                crops: ['paddy', 'wheat', 'sugarcane', 'cotton', 'maize', 'vegetables'],
+                activities: ['tillage', 'hauling', 'sowing'],
+                owner: 'Sukhwinder Singh'
+            },
+            {
+                id: 'harvester',
+                name: 'Combine Harvester',
+                category: 'harvesters',
+                image: 'images/harvester.png',
+                dailyRate: 3500,
+                hourlyRate: 600,
+                status: 'In High Demand',
+                statusBg: 'bg-earth-400 text-darkgreen-950',
+                hp: '75 HP Engine',
+                fuel: '8.0 L/hr',
+                distance: '5.8 km away',
+                hub: 'Green Valley Hub',
+                rating: 4.8,
+                reviews: 98,
+                tag: 'Grain Harvesting',
+                description: 'Integrated cutting, threshing, winnowing machinery for high-speed paddy and wheat harvesting.',
+                crops: ['paddy', 'wheat', 'maize'],
+                activities: ['harvesting'],
+                owner: 'Gurpreet Singh'
+            },
+            {
+                id: 'seeder',
+                name: 'Precision Seed Drill',
+                category: 'sowing',
+                image: 'images/seeder.png',
+                dailyRate: 800,
+                hourlyRate: 150,
+                status: 'Available Now',
+                statusBg: 'bg-lightgreen-400 text-darkgreen-950',
+                hp: '35 HP Req.',
+                fuel: '2.0 L/hr',
+                distance: '2.1 km away',
+                hub: 'Kisan Seva Hub',
+                rating: 4.7,
+                reviews: 64,
+                tag: 'Precision Sowing',
+                description: 'Ensures uniform seed depth and distance spacing for max crop germination and reduced seed waste.',
+                crops: ['wheat', 'cotton', 'maize', 'vegetables'],
+                activities: ['sowing'],
+                owner: 'Ramesh Patel'
+            },
+            {
+                id: 'sprayer',
+                name: 'Power Crop Sprayer',
+                category: 'spraying',
+                image: 'images/sprayer.png',
+                dailyRate: 600,
+                hourlyRate: 100,
+                status: 'Booked till Tomorrow',
+                statusBg: 'bg-blue-400 text-darkgreen-950',
+                hp: '12 HP Engine',
+                fuel: '1.2 L/hr',
+                distance: '4.5 km away',
+                hub: 'Kisan Seva Hub',
+                rating: 4.9,
+                reviews: 82,
+                tag: 'Crop Protection',
+                description: 'High-pressure mist sprayer for uniform fertilizer, organic pest control, and liquid nutrient coverage.',
+                crops: ['paddy', 'cotton', 'vegetables', 'sugarcane'],
+                activities: ['spraying'],
+                owner: 'Balwinder Kumar'
+            },
+            {
+                id: 'rotavator',
+                name: 'Rotary Tiller / Rotavator',
+                category: 'tractors',
+                image: 'images/rotavator.png',
+                dailyRate: 950,
+                hourlyRate: 180,
+                status: 'Available Now',
+                statusBg: 'bg-lightgreen-400 text-darkgreen-950',
+                hp: '45 HP Req.',
+                fuel: '3.0 L/hr',
+                distance: '1.8 km away',
+                hub: 'Rampur Village Hub',
+                rating: 4.8,
+                reviews: 53,
+                tag: 'Soil Pulverization',
+                description: 'High-speed rotating blades pulverize soil clods into fine seedbeds in a single pass.',
+                crops: ['paddy', 'wheat', 'vegetables', 'cotton'],
+                activities: ['tillage'],
+                owner: 'Vikram Singh'
+            },
+            {
+                id: 'drone',
+                name: 'Smart AI Drone Sprayer',
+                category: 'spraying',
+                image: 'images/drone.png',
+                dailyRate: 1500,
+                hourlyRate: 300,
+                status: 'Available Now',
+                statusBg: 'bg-lightgreen-400 text-darkgreen-950',
+                hp: 'Battery / Auto',
+                fuel: 'Electric',
+                distance: '3.0 km away',
+                hub: 'AgriTech Hub',
+                rating: 4.9,
+                reviews: 41,
+                tag: 'Precision Aerial Spraying',
+                description: 'Autonomous flight path spraying capable of treating 10 acres per hour with millimeter accuracy.',
+                crops: ['paddy', 'wheat', 'cotton', 'sugarcane', 'vegetables'],
+                activities: ['spraying'],
+                owner: 'TechAgri Hub'
+            }
+        ];
+
+        // State Variables
+        let currentRole = localStorage.getItem(STORAGE_ROLE) || 'farmer';
+        let customMachinery = JSON.parse(localStorage.getItem(STORAGE_CUSTOM_MACHINES) || '[]');
+        let favouritesList = JSON.parse(localStorage.getItem(STORAGE_FAVOURITES) || '[]');
+        let bookingsHistory = JSON.parse(localStorage.getItem(STORAGE_BOOKINGS) || '[]');
+        let rentalRequests = JSON.parse(localStorage.getItem(STORAGE_REQUESTS) || '[]');
+
+        let selectedCategory = 'all';
+        let compareList = [];
+        let currentUploadedImageBase64 = '';
+
+        // Combined Live Machinery Data
+        function getFullMachineryData() {
+            return [...DEFAULT_MACHINERY, ...customMachinery];
+        }
+
+        // INITIALIZATION
+        document.addEventListener('DOMContentLoaded', () => {
+            initSampleDataIfEmpty();
+            switchRole(currentRole);
+            filterCatalog();
+            setupScrollReveal();
+            runAiMatch(null);
+            calculateRentalCost();
+            renderFavouritesBadge();
+            renderFarmerBookings();
+            renderOwnerDashboard();
+            
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            if (document.getElementById('bm-date')) document.getElementById('bm-date').valueAsDate = tomorrow;
+        });
+
+        function initSampleDataIfEmpty() {
+            if (rentalRequests.length === 0) {
+                rentalRequests = [
+                    {
+                        id: 'REQ-101',
+                        farmerName: 'Ramesh Patel',
+                        machineId: 'tractor',
+                        machineName: 'Heavy Duty Tractor (50 HP)',
+                        dates: '24 Sep - 26 Sep (2 Days)',
+                        location: 'Rampur Village',
+                        totalAmount: 2900,
+                        status: 'Pending'
+                    },
+                    {
+                        id: 'REQ-102',
+                        farmerName: 'Gurpreet Singh',
+                        machineId: 'harvester',
+                        machineName: 'Combine Harvester (75 HP)',
+                        dates: '28 Sep - 30 Sep (2 Days)',
+                        location: 'Green Valley Hub',
+                        totalAmount: 7600,
+                        status: 'Pending'
+                    }
+                ];
+                localStorage.setItem(STORAGE_REQUESTS, JSON.stringify(rentalRequests));
+            }
+        }
+
+
+        // 7. ROLE-BASED SYSTEM & NAVIGATION LOGIC
+        function switchRole(role) {
+            currentRole = role;
+            localStorage.setItem(STORAGE_ROLE, role);
+
+            // Update Header pill & Switcher label
+            const pill = document.getElementById('role-pill');
+            const label = document.getElementById('current-role-label');
+            if (pill) pill.innerText = role.toUpperCase();
+            if (label) label.innerText = role;
+
+            // Highlight Cards in Role Selector
+            const fCard = document.getElementById('role-card-farmer');
+            const oCard = document.getElementById('role-card-owner');
+            const fBadge = document.querySelector('.role-badge-farmer');
+            const oBadge = document.querySelector('.role-badge-owner');
+
+            if (role === 'farmer') {
+                if (fCard) { fCard.classList.add('border-lightgreen-400'); fCard.classList.remove('border-transparent'); }
+                if (oCard) { oCard.classList.remove('border-earth-400'); }
+                if (fBadge) fBadge.classList.remove('hidden');
+                if (oBadge) oBadge.classList.add('hidden');
+            } else {
+                if (oCard) { oCard.classList.add('border-earth-400'); oCard.classList.remove('border-transparent'); }
+                if (fCard) { fCard.classList.remove('border-lightgreen-400'); }
+                if (oBadge) oBadge.classList.remove('hidden');
+                if (fBadge) fBadge.classList.add('hidden');
+            }
+
+            // Update Navigation Links
+            renderRoleNavLinks();
+
+            // Toggle Dashboard Visibility
+            const ownerDash = document.getElementById('owner-dashboard');
+            const farmerBookings = document.getElementById('farmer-bookings-section');
+
+            if (role === 'owner') {
+                if (ownerDash) ownerDash.classList.remove('hidden');
+                if (farmerBookings) farmerBookings.classList.add('hidden');
+                renderOwnerDashboard();
+            } else {
+                if (ownerDash) ownerDash.classList.add('hidden');
+                if (farmerBookings) farmerBookings.classList.remove('hidden');
+                renderFarmerBookings();
+            }
+        }
+
+        function renderRoleNavLinks() {
+            const nav = document.getElementById('nav-links');
+            const mobileNav = document.getElementById('mobile-nav-links');
+            if (!nav) return;
+
+            let linksHtml = '';
+            let mobileLinksHtml = '';
+
+            if (currentRole === 'farmer') {
+                linksHtml = `
+                    <li><a href="#home" class="text-emerald-100 hover:text-lightgreen-400">Home</a></li>
+                    <li><a href="#machines" class="text-emerald-100 hover:text-lightgreen-400">Find Machinery</a></li>
+                    <li><a href="#ai" class="text-lightgreen-300 hover:text-lightgreen-400 flex items-center gap-1"><span>✨ AI Match</span></a></li>
+                    <li><a href="#farmer-bookings-section" class="text-emerald-100 hover:text-lightgreen-400">My Bookings</a></li>
+                    <li><a href="#calculator" class="text-emerald-100 hover:text-lightgreen-400">Calculator</a></li>
+                `;
+                mobileLinksHtml = `
+                    <a href="#home" onclick="toggleMobileMenu()" class="block text-emerald-100">Home</a>
+                    <a href="#machines" onclick="toggleMobileMenu()" class="block text-emerald-100">Find Machinery</a>
+                    <a href="#ai" onclick="toggleMobileMenu()" class="block text-lightgreen-300">✨ Recommendations</a>
+                    <a href="#farmer-bookings-section" onclick="toggleMobileMenu()" class="block text-emerald-100">My Bookings</a>
+                `;
+            } else {
+                linksHtml = `
+                    <li><a href="#owner-dashboard" class="text-earth-400 font-extrabold hover:text-white">Owner Dashboard</a></li>
+                    <li><a href="#owner-dashboard" onclick="scrollToSection('owner-machinery-grid')" class="text-emerald-100 hover:text-lightgreen-400">My Machinery</a></li>
+                    <li><a href="#owner-dashboard" onclick="scrollToSection('owner-requests-list')" class="text-emerald-100 hover:text-lightgreen-400">Rental Requests</a></li>
+                    <li><a href="#owner-dashboard" onclick="scrollToSection('earnings-chart')" class="text-emerald-100 hover:text-lightgreen-400">Earnings</a></li>
+                `;
+                mobileLinksHtml = `
+                    <a href="#owner-dashboard" onclick="toggleMobileMenu()" class="block text-earth-400 font-bold">Owner Dashboard</a>
+                    <a href="#owner-dashboard" onclick="toggleMobileMenu()" class="block text-emerald-100">My Machinery</a>
+                    <a href="#owner-dashboard" onclick="toggleMobileMenu()" class="block text-emerald-100">Rental Requests</a>
+                `;
+            }
+
+            nav.innerHTML = linksHtml;
+            if (mobileNav) mobileNav.innerHTML = mobileLinksHtml;
+        }
+
+        function scrollToRoleSelector() {
+            scrollToSection('role-selector');
+        }
+
+        function scrollToSection(id) {
+            const el = document.getElementById(id);
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }
+
+
+        // CATALOG RENDER & FILTERING
+        function renderCatalog(items) {
+            const grid = document.getElementById('machinery-grid');
+            if (!grid) return;
+
+            if (items.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-12 text-emerald-300/70 space-y-2">
+                        <p class="text-3xl">🔍</p>
+                        <p class="text-base font-bold text-white">No machinery found matching your filters.</p>
+                        <p class="text-xs">Try adjusting search or price slider.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = items.map(m => {
+                const isCompared = compareList.includes(m.id);
+                const isFav = favouritesList.includes(m.id);
+                return `
+                    <article class="glow-card rounded-2xl overflow-hidden flex flex-col justify-between group transition-all duration-300">
+                        <div>
+                            <div class="relative h-52 overflow-hidden">
+                                <img src="${m.image}" alt="${m.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                <div class="absolute inset-0 bg-gradient-to-t from-darkgreen-950 via-transparent to-transparent"></div>
+                                
+                                <span class="absolute top-3 right-3 ${m.statusBg || 'bg-lightgreen-400 text-darkgreen-950'} text-xs font-black px-3 py-1 rounded-full shadow-md">
+                                    ${m.status || 'Available Now'}
+                                </span>
+
+                                <span class="absolute top-3 left-3 bg-darkgreen-950/80 backdrop-blur-md text-emerald-200 border border-lightgreen-400/30 text-[11px] font-bold px-2.5 py-1 rounded-lg">
+                                    📍 ${m.distance || 'Near Hub'}
+                                </span>
+
+                                <button onclick="toggleFavourite('${m.id}')" class="absolute bottom-3 right-3 w-9 h-9 rounded-full bg-darkgreen-950/80 border border-lightgreen-400/30 flex items-center justify-center text-sm shadow-md hover:scale-110 transition-transform">
+                                    ${isFav ? '❤️' : '🤍'}
+                                </button>
+                            </div>
+
+                            <div class="p-6 space-y-3">
+                                <div class="flex items-center justify-between text-xs text-lightgreen-400 font-bold">
+                                    <span>${m.tag || 'Agriculture'}</span>
+                                    <span class="text-earth-400 font-extrabold flex items-center gap-1">
+                                        ★ ${m.rating || 4.8} <span class="text-emerald-300/60 font-normal">(${m.reviews || 20})</span>
+                                    </span>
+                                </div>
+
+                                <h3 class="text-2xl font-extrabold text-white font-display">
+                                    ${m.name}
+                                </h3>
+
+                                <p class="text-emerald-200/70 text-xs leading-relaxed line-clamp-2">
+                                    ${m.description}
+                                </p>
+
+                                <div class="flex items-center gap-2 pt-1 text-[11px] text-emerald-300/80">
+                                    <span class="bg-darkgreen-900 border border-lightgreen-400/20 px-2.5 py-1 rounded-md">⚡ ${m.hp}</span>
+                                    <span class="bg-darkgreen-900 border border-lightgreen-400/20 px-2.5 py-1 rounded-md">⛽ ${m.fuel}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-6 pt-0 space-y-3">
+                            <div class="pt-3 border-t border-lightgreen-400/15 flex items-center justify-between">
+                                <div>
+                                    <span class="text-[11px] text-emerald-300/70 block">Daily Rental</span>
+                                    <span class="text-2xl font-black text-lightgreen-400 font-display">₹${Number(m.dailyRate).toLocaleString('en-IN')}</span>
+                                    <span class="text-[11px] text-emerald-200/80">/ day</span>
+                                </div>
+                                <button onclick="openBookingModal('${m.id}')" class="shimmer-btn text-darkgreen-950 font-extrabold px-5 py-2.5 rounded-xl text-xs shadow-md transition-all duration-300 transform hover:scale-105">
+                                    Rent Now
+                                </button>
+                            </div>
+
+                            <div class="flex items-center justify-between text-[11px] pt-1">
+                                <label class="flex items-center gap-1.5 text-emerald-300/80 cursor-pointer hover:text-lightgreen-400">
+                                    <input type="checkbox" onchange="toggleCompare('${m.id}')" ${isCompared ? 'checked' : ''} class="accent-lightgreen-400 rounded">
+                                    <span>Compare</span>
+                                </label>
+                                <span class="text-emerald-400/60">Owner: ${(m.owner || 'Local Hub').split(' ')[0]}</span>
+                            </div>
+                        </div>
+                    </article>
+                `;
+            }).join('');
+        }
+
+        function setCategory(cat) {
+            selectedCategory = cat;
+            document.querySelectorAll('#category-tabs .cat-btn').forEach(btn => {
+                btn.classList.remove('bg-lightgreen-400', 'text-darkgreen-950', 'active-cat', 'font-extrabold');
+                btn.classList.add('bg-darkgreen-800', 'text-emerald-200', 'font-bold');
+            });
+            event.target.classList.add('bg-lightgreen-400', 'text-darkgreen-950', 'active-cat', 'font-extrabold');
+            filterCatalog();
+        }
+
+        function updatePriceSlider(val) {
+            document.getElementById('price-slider-val').innerText = '₹' + Number(val).toLocaleString('en-IN') + '/d';
+            filterCatalog();
+        }
+
+        function filterCatalog() {
+            const search = document.getElementById('catalog-search')?.value.toLowerCase().trim() || '';
+            const maxPrice = Number(document.getElementById('price-range')?.value || 5000);
+            const sort = document.getElementById('sort-selector')?.value || 'popular';
+
+            const allData = getFullMachineryData();
+
+            let filtered = allData.filter(m => {
+                const matchesCat = selectedCategory === 'all' || m.category === selectedCategory;
+                const matchesSearch = m.name.toLowerCase().includes(search) || (m.tag && m.tag.toLowerCase().includes(search)) || m.description.toLowerCase().includes(search);
+                const matchesPrice = Number(m.dailyRate) <= maxPrice;
+                return matchesCat && matchesSearch && matchesPrice;
+            });
+
+            if (sort === 'price-low') filtered.sort((a, b) => a.dailyRate - b.dailyRate);
+            if (sort === 'price-high') filtered.sort((a, b) => b.dailyRate - a.dailyRate);
+            if (sort === 'rating') filtered.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+
+            renderCatalog(filtered);
+        }
+
+
+        // 2. FARMER RECOMMENDATION ENGINE WITH MATCH % & EXPLANATION
+        function runAiMatch(e) {
+            if (e) e.preventDefault();
+
+            const crop = document.getElementById('ai-crop')?.value || 'paddy';
+            const acres = Number(document.getElementById('ai-acres')?.value || 5);
+            const activity = document.getElementById('ai-activity')?.value || 'tillage';
+            const budget = Number(document.getElementById('ai-budget')?.value || 2500);
+            const duration = Number(document.getElementById('ai-duration')?.value || 3);
+            const location = document.getElementById('ai-location')?.value || 'Rampur';
+
+            const container = document.getElementById('ai-results-container');
+            if (!container) return;
+
+            const allData = getFullMachineryData();
+
+            const scored = allData.map(m => {
+                let score = 50;
+                if (m.crops && m.crops.includes(crop)) score += 20;
+                if (m.activities && m.activities.includes(activity)) score += 20;
+                if (m.dailyRate <= budget) score += 10;
+                if (m.hub && m.hub.toLowerCase().includes(location.toLowerCase())) score += 5;
+
+                const matchPct = Math.min(98, Math.max(82, score));
+                return { machine: m, matchPct };
+            });
+
+            scored.sort((a, b) => b.matchPct - a.matchPct);
+            const topMatches = scored.slice(0, 2);
+
+            container.innerHTML = topMatches.map(({ machine: m, matchPct }) => {
+                return `
+                    <div class="glow-card p-6 rounded-2xl border-2 border-lightgreen-400/40 space-y-4">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                            <div class="flex items-center gap-4">
+                                <img src="${m.image}" alt="${m.name}" class="w-20 h-20 rounded-xl object-cover border border-lightgreen-400/30">
+                                <div>
+                                    <span class="text-xs font-black text-lightgreen-300 bg-lightgreen-400/20 px-3 py-1 rounded-full border border-lightgreen-400/30 uppercase">
+                                        ✨ ${matchPct}% Match
+                                    </span>
+                                    <h4 class="text-xl font-extrabold text-white font-display mt-1.5">${m.name}</h4>
+                                    <p class="text-xs text-emerald-300/80">⚡ ${m.hp} • 📍 ${m.distance || 'Near ' + location}</p>
+                                </div>
+                            </div>
+                            <div class="text-left sm:text-right">
+                                <span class="text-2xl font-black text-lightgreen-400 font-display">₹${m.dailyRate}</span>
+                                <span class="text-xs text-emerald-300/70">/ day</span>
+                                <button onclick="openBookingModal('${m.id}')" class="block mt-2 bg-gradient-to-r from-lightgreen-400 to-lightgreen-500 text-darkgreen-950 font-black px-4 py-2 rounded-xl text-xs shadow-md">
+                                    Book This Match
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Short Explanation Callout -->
+                        <div class="p-3.5 rounded-xl bg-darkgreen-950/90 border border-lightgreen-400/30 text-xs text-emerald-200/90">
+                            <strong>Why this match?</strong> ${matchPct}% Match – Suitable for your ${acres} acre farm size, selected ${activity} activity, ₹${budget}/day budget limit and ${location} location.
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+
+        // 3. OWNER MACHINERY LISTING FORM & IMAGE PREVIEW
+        function openAddMachineModal() {
+            document.getElementById('add-machine-modal').classList.remove('hidden');
+        }
+
+        function closeAddMachineModal() {
+            document.getElementById('add-machine-modal').classList.add('hidden');
+        }
+
+        function previewUploadImage(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    currentUploadedImageBase64 = e.target.result;
+                    const previewImg = document.getElementById('image-preview-img');
+                    const previewContainer = document.getElementById('image-preview-container');
+                    if (previewImg && previewContainer) {
+                        previewImg.src = e.target.result;
+                        previewContainer.classList.remove('hidden');
+                    }
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function useCurrentLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (pos) => {
+                        document.getElementById('add-hub').value = 'Local Village Hub';
+                        document.getElementById('add-district').value = 'Rampur District';
+                        document.getElementById('add-dist-tag').value = '1.2 km away';
+                        alert('📍 Location captured! Set to nearby Rampur Hub.');
+                    },
+                    (err) => {
+                        alert('Geolocation permission denied. Setting default district Rampur.');
+                        document.getElementById('add-district').value = 'Rampur District';
+                    }
+                );
+            }
+        }
+
+        function publishMachinery(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('add-name').value;
+            const category = document.getElementById('add-category').value;
+            const dailyRate = Number(document.getElementById('add-daily-rate').value);
+            const hourlyRate = Number(document.getElementById('add-hourly-rate').value) || Math.round(dailyRate / 6);
+            const hp = document.getElementById('add-hp').value || '45 HP';
+            const fuel = document.getElementById('add-fuel').value;
+            const hub = document.getElementById('add-hub').value || 'Rampur Owner Hub';
+            const distTag = document.getElementById('add-dist-tag').value || '2.0 km away';
+
+            const newMachine = {
+                id: 'custom-' + Date.now(),
+                name: name,
+                category: category,
+                image: currentUploadedImageBase64 || 'images/tractor.png',
+                dailyRate: dailyRate,
+                hourlyRate: hourlyRate,
+                status: 'Available Now',
+                statusBg: 'bg-lightgreen-400 text-darkgreen-950',
+                hp: hp,
+                fuel: fuel,
+                distance: distTag,
+                hub: hub,
+                rating: 5.0,
+                reviews: 1,
+                tag: 'Owner Listed',
+                description: `High-quality ${name} listed directly by owner for local farm operations.`,
+                crops: ['paddy', 'wheat', 'cotton', 'vegetables'],
+                activities: ['tillage', 'hauling', 'sowing', 'harvesting'],
+                owner: 'My Owner Account'
+            };
+
+            customMachinery.push(newMachine);
+            localStorage.setItem(STORAGE_CUSTOM_MACHINES, JSON.stringify(customMachinery));
+
+            triggerNotification("Your machinery listing has been published!", `Listing for ${name} is now live.`);
+            alert(`🎉 Success! ${name} has been published to the AgriRent catalog.`);
+
+            closeAddMachineModal();
+            filterCatalog();
+            renderOwnerDashboard();
+        }
+
+
+        // 4. OWNER DASHBOARD & RENTAL REQUESTS MANAGEMENT
+        function renderOwnerDashboard() {
+            const grid = document.getElementById('owner-machinery-grid');
+            const requestsList = document.getElementById('owner-requests-list');
+            if (!grid) return;
+
+            const fullData = getFullMachineryData();
+            const ownerMachines = fullData.filter(m => m.owner === 'My Owner Account' || customMachinery.some(c => c.id === m.id));
+
+            document.getElementById('owner-listings-count').innerText = `${ownerMachines.length} Listed Machine${ownerMachines.length === 1 ? '' : 's'}`;
+
+            if (ownerMachines.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full text-center py-8 text-emerald-300/70">
+                        <p class="text-xs">No machines listed yet under your account. Click "+ List Your Machinery" to add one.</p>
+                    </div>
+                `;
+            } else {
+                grid.innerHTML = ownerMachines.map(m => `
+                    <div class="glow-card p-4 rounded-2xl space-y-3">
+                        <img src="${m.image}" class="w-full h-36 object-cover rounded-xl border border-lightgreen-400/20">
+                        <div>
+                            <span class="text-[10px] font-bold ${m.statusBg || 'bg-lightgreen-400 text-darkgreen-950'} px-2 py-0.5 rounded-full">
+                                ${m.status}
+                            </span>
+                            <h4 class="font-extrabold text-white text-base mt-1">${m.name}</h4>
+                            <p class="text-xs text-lightgreen-400 font-bold">₹${m.dailyRate}/day</p>
+                        </div>
+                        <div class="flex gap-2 pt-2 border-t border-lightgreen-400/10 text-xs">
+                            <button onclick="togglePauseMachine('${m.id}')" class="flex-1 bg-darkgreen-900 hover:bg-darkgreen-800 text-emerald-200 py-1.5 rounded-lg border border-lightgreen-400/20 font-semibold">
+                                ${m.status === '🟡 Paused' ? 'Resume' : 'Pause'}
+                            </button>
+                            <button onclick="deleteMachine('${m.id}')" class="bg-red-500/20 text-red-300 hover:bg-red-500 hover:text-white px-3 py-1.5 rounded-lg border border-red-500/30 font-semibold">
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // Rental Requests Render
+            if (requestsList) {
+                const pendingCount = rentalRequests.filter(r => r.status === 'Pending').length;
+                document.getElementById('requests-pending-badge').innerText = `${pendingCount} Pending`;
+
+                if (rentalRequests.length === 0) {
+                    requestsList.innerHTML = `<p class="text-xs text-emerald-300/70 col-span-full">No incoming rental requests at the moment.</p>`;
+                } else {
+                    requestsList.innerHTML = rentalRequests.map(r => `
+                        <div class="glow-card p-5 rounded-2xl space-y-3 border-l-4 ${r.status === 'Accepted' ? 'border-l-lightgreen-400' : (r.status === 'Rejected' ? 'border-l-red-400' : 'border-l-earth-400')}">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <span class="text-[11px] font-bold uppercase tracking-wider text-earth-400">${r.id}</span>
+                                    <h4 class="font-bold text-white text-base">${r.farmerName}</h4>
+                                    <p class="text-xs text-emerald-300/80">Machine: ${r.machineName}</p>
+                                </div>
+                                <span class="text-xs font-bold ${r.status === 'Accepted' ? 'bg-lightgreen-400/20 text-lightgreen-300' : (r.status === 'Rejected' ? 'bg-red-500/20 text-red-300' : 'bg-earth-400/20 text-earth-300')} px-2.5 py-1 rounded-full">
+                                    ${r.status}
+                                </span>
+                            </div>
+
+                            <div class="text-xs text-emerald-200/80 space-y-1 bg-darkgreen-950 p-3 rounded-xl">
+                                <div>📅 <strong>Dates:</strong> ${r.dates}</div>
+                                <div>📍 <strong>Location:</strong> ${r.location}</div>
+                                <div>💰 <strong>Total Amount:</strong> <span class="text-lightgreen-400 font-bold">₹${r.totalAmount.toLocaleString('en-IN')}</span></div>
+                            </div>
+
+                            ${r.status === 'Pending' ? `
+                                <div class="flex gap-2 pt-2">
+                                    <button onclick="acceptRentalRequest('${r.id}')" class="flex-1 bg-lightgreen-400 hover:bg-lightgreen-300 text-darkgreen-950 font-black py-2 rounded-xl text-xs shadow-md">
+                                        Accept Request
+                                    </button>
+                                    <button onclick="rejectRentalRequest('${r.id}')" class="bg-darkgreen-900 hover:bg-red-500/30 text-emerald-200 py-2 px-4 rounded-xl text-xs border border-lightgreen-400/20">
+                                        Reject
+                                    </button>
+                                </div>
+                            ` : ''}
+                        </div>
+                    `).join('');
+                }
+            }
+
+            renderEarningsChart();
+        }
+
+        function acceptRentalRequest(reqId) {
+            const req = rentalRequests.find(r => r.id === reqId);
+            if (req) {
+                req.status = 'Accepted';
+                localStorage.setItem(STORAGE_REQUESTS, JSON.stringify(rentalRequests));
+
+                // Mark machine as rented
+                const allData = getFullMachineryData();
+                const m = allData.find(item => item.id === req.machineId);
+                if (m) {
+                    m.status = '🔴 Rented';
+                    m.statusBg = 'bg-red-500 text-white';
+                }
+
+                triggerNotification("Your rental request was accepted.", `Rental request for ${req.machineName} accepted! Machine status set to 🔴 Rented.`);
+                alert(`✅ Request ${reqId} accepted! Machine status updated to 🔴 Rented for selected dates.`);
+                renderOwnerDashboard();
+                filterCatalog();
+            }
+        }
+
+        function rejectRentalRequest(reqId) {
+            const req = rentalRequests.find(r => r.id === reqId);
+            if (req) {
+                req.status = 'Rejected';
+                localStorage.setItem(STORAGE_REQUESTS, JSON.stringify(rentalRequests));
+                renderOwnerDashboard();
+            }
+        }
+
+        function togglePauseMachine(id) {
+            const m = customMachinery.find(item => item.id === id);
+            if (m) {
+                m.status = m.status === '🟡 Paused' ? 'Available Now' : '🟡 Paused';
+                m.statusBg = m.status === '🟡 Paused' ? 'bg-yellow-400 text-darkgreen-950' : 'bg-lightgreen-400 text-darkgreen-950';
+                localStorage.setItem(STORAGE_CUSTOM_MACHINES, JSON.stringify(customMachinery));
+                renderOwnerDashboard();
+                filterCatalog();
+            }
+        }
+
+        function deleteMachine(id) {
+            if (confirm('Delete this machinery listing from AgriRent?')) {
+                customMachinery = customMachinery.filter(item => item.id !== id);
+                localStorage.setItem(STORAGE_CUSTOM_MACHINES, JSON.stringify(customMachinery));
+                renderOwnerDashboard();
+                filterCatalog();
+            }
+        }
+
+        // EARNINGS CANVAS CHART RENDERER
+        function renderEarningsChart() {
+            const canvas = document.getElementById('earnings-chart');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            
+            canvas.width = canvas.parentElement.clientWidth;
+            canvas.height = canvas.parentElement.clientHeight;
+
+            const width = canvas.width;
+            const height = canvas.height;
+
+            ctx.clearRect(0, 0, width, height);
+
+            const months = ['Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'];
+            const earnings = [12000, 15500, 18200, 21000, 22400, 25400];
+            const maxE = 30000;
+
+            const padding = 30;
+            const graphW = width - padding * 2;
+            const graphH = height - padding * 2;
+
+            // Grid Lines
+            ctx.strokeStyle = 'rgba(74, 222, 128, 0.15)';
+            ctx.lineWidth = 1;
+            for (let i = 0; i <= 3; i++) {
+                const y = padding + (graphH / 3) * i;
+                ctx.beginPath();
+                ctx.moveTo(padding, y);
+                ctx.lineTo(width - padding, y);
+                ctx.stroke();
+            }
+
+            // Draw Gradient Line
+            ctx.beginPath();
+            const points = earnings.map((val, idx) => {
+                const x = padding + (graphW / (months.length - 1)) * idx;
+                const y = height - padding - (val / maxE) * graphH;
+                return { x, y };
+            });
+
+            ctx.moveTo(points[0].x, points[0].y);
+            for (let i = 1; i < points.length; i++) {
+                ctx.lineTo(points[i].x, points[i].y);
+            }
+
+            const gradient = ctx.createLinearGradient(0, 0, width, 0);
+            gradient.addColorStop(0, '#4ade80');
+            gradient.addColorStop(1, '#fbbf24');
+            ctx.strokeStyle = gradient;
+            ctx.lineWidth = 4;
+            ctx.stroke();
+
+            // Points
+            points.forEach((pt, i) => {
+                ctx.beginPath();
+                ctx.arc(pt.x, pt.y, 6, 0, Math.PI * 2);
+                ctx.fillStyle = '#05150c';
+                ctx.fill();
+                ctx.strokeStyle = '#4ade80';
+                ctx.lineWidth = 3;
+                ctx.stroke();
+
+                // Labels
+                ctx.fillStyle = '#86efac';
+                ctx.font = '10px Plus Jakarta Sans';
+                ctx.textAlign = 'center';
+                ctx.fillText(months[i], pt.x, height - 10);
+            });
+        }
+
+
+        // FAVOURITES SYSTEM
+        function toggleFavourite(id) {
+            if (favouritesList.includes(id)) {
+                favouritesList = favouritesList.filter(item => item !== id);
+            } else {
+                favouritesList.push(id);
+            }
+            localStorage.setItem(STORAGE_FAVOURITES, JSON.stringify(favouritesList));
+            renderFavouritesBadge();
+            filterCatalog();
+        }
+
+        function renderFavouritesBadge() {
+            const badge = document.getElementById('fav-badge');
+            if (badge) badge.innerText = favouritesList.length;
+        }
+
+        function openFavouritesModal() {
+            const modal = document.getElementById('favourites-modal');
+            const grid = document.getElementById('favourites-grid');
+            const allData = getFullMachineryData();
+
+            const favItems = allData.filter(m => favouritesList.includes(m.id));
+
+            if (favItems.length === 0) {
+                grid.innerHTML = `<p class="text-xs text-emerald-300/70 col-span-full">No favourites saved yet. Click ❤️ on any card.</p>`;
+            } else {
+                grid.innerHTML = favItems.map(m => `
+                    <div class="glow-card p-4 rounded-2xl flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <img src="${m.image}" class="w-14 h-14 object-cover rounded-xl">
+                            <div>
+                                <h4 class="font-extrabold text-white text-sm">${m.name}</h4>
+                                <p class="text-xs text-lightgreen-400 font-bold">₹${m.dailyRate}/day</p>
+                            </div>
+                        </div>
+                        <button onclick="openBookingModal('${m.id}'); closeFavouritesModal();" class="bg-lightgreen-400 text-darkgreen-950 font-black px-3 py-1.5 rounded-lg text-xs">
+                            Rent
+                        </button>
+                    </div>
+                `).join('');
+            }
+            modal.classList.remove('hidden');
+        }
+
+        function closeFavouritesModal() {
+            document.getElementById('favourites-modal').classList.add('hidden');
+        }
+
+
+        // FARMER BOOKINGS RENDER & CANCELLATION
+        function renderFarmerBookings() {
+            const container = document.getElementById('farmer-bookings-list');
+            if (!container) return;
+
+            if (bookingsHistory.length === 0) {
+                container.innerHTML = `<p class="text-xs text-emerald-300/70 col-span-full">You have no active or previous bookings.</p>`;
+                return;
+            }
+
+            container.innerHTML = bookingsHistory.map(b => `
+                <div class="glow-card p-5 rounded-2xl space-y-3">
+                    <div class="flex justify-between items-center">
+                        <span class="text-xs font-bold text-lightgreen-400 uppercase">${b.id}</span>
+                        <span class="text-[11px] font-bold bg-lightgreen-400/20 text-lightgreen-300 px-2.5 py-0.5 rounded-full">
+                            ${b.status || 'Confirmed'}
+                        </span>
+                    </div>
+                    <h4 class="font-extrabold text-white text-base">${b.machineName}</h4>
+                    <div class="text-xs text-emerald-200/80 space-y-1">
+                        <div>📅 Date: ${b.date} (${b.duration} Days)</div>
+                        <div>📍 Location: ${b.location}</div>
+                        <div>💰 Total Paid: <span class="font-bold text-lightgreen-400">₹${b.totalCost}</span></div>
+                    </div>
+                    <button onclick="cancelBooking('${b.id}')" class="w-full bg-red-500/20 text-red-300 hover:bg-red-500 hover:text-white py-1.5 rounded-lg text-xs font-bold border border-red-500/30">
+                        Cancel Booking
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function cancelBooking(id) {
+            if (confirm('Are you sure you want to cancel this booking?')) {
+                bookingsHistory = bookingsHistory.filter(b => b.id !== id);
+                localStorage.setItem(STORAGE_BOOKINGS, JSON.stringify(bookingsHistory));
+                renderFarmerBookings();
+                triggerNotification("Booking cancelled", `Booking #${id} has been cancelled.`);
+            }
+        }
+
+
+        // BROWSER NOTIFICATION HELPER
+        function triggerNotification(title, body) {
+            if ("Notification" in window) {
+                if (Notification.permission === "granted") {
+                    new Notification(title, { body, icon: 'images/hero.png' });
+                } else if (Notification.permission !== "denied") {
+                    Notification.requestPermission().then(permission => {
+                        if (permission === "granted") {
+                            new Notification(title, { body, icon: 'images/hero.png' });
+                        }
+                    });
+                }
+            }
+        }
+
+
+        // RENTAL COST CALCULATOR LOGIC
+        function calculateRentalCost() {
+            const machineSelect = document.getElementById('calc-machine');
+            if (!machineSelect) return;
+
+            const selectedOption = machineSelect.options[machineSelect.selectedIndex];
+            const dailyRate = Number(selectedOption.getAttribute('data-rate') || 1200);
+
+            const days = Number(document.getElementById('calc-days')?.value || 3);
+            const includeOperator = document.getElementById('calc-operator')?.checked || false;
+            const dist = Number(document.getElementById('calc-dist')?.value || 5);
+
+            document.getElementById('calc-days-display').innerText = days + (days === 1 ? ' Day' : ' Days');
+            document.getElementById('calc-dist-display').innerText = dist + ' KM';
+            document.getElementById('out-days').innerText = days;
+
+            const baseCost = dailyRate * days;
+            const operatorCost = includeOperator ? (500 * days) : 0;
+            const deliveryCost = dist <= 2 ? 0 : (dist - 2) * 20;
+
+            let discountPct = 0;
+            if (days >= 7) discountPct = 0.10;
+            else if (days >= 3) discountPct = 0.05;
+
+            const discountAmount = Math.round(baseCost * discountPct);
+            const total = baseCost + operatorCost + deliveryCost - discountAmount;
+
+            document.getElementById('out-base').innerText = '₹' + baseCost.toLocaleString('en-IN');
+            document.getElementById('out-operator').innerText = '₹' + operatorCost.toLocaleString('en-IN');
+            document.getElementById('out-delivery').innerText = '₹' + deliveryCost.toLocaleString('en-IN');
+            document.getElementById('out-discount').innerText = '-₹' + discountAmount.toLocaleString('en-IN');
+            document.getElementById('out-total').innerText = '₹' + total.toLocaleString('en-IN');
+        }
+
+        function openBookingFromCalc() {
+            const machineId = document.getElementById('calc-machine').value;
+            openBookingModal(machineId);
+        }
+
+
+        // COMPARISON MODAL LOGIC
+        function toggleCompare(id) {
+            if (compareList.includes(id)) {
+                compareList = compareList.filter(item => item !== id);
+            } else {
+                if (compareList.length >= 3) {
+                    alert('You can compare up to 3 machines simultaneously.');
+                    filterCatalog();
+                    return;
+                }
+                compareList.push(id);
+            }
+
+            const counterBadge = document.getElementById('compare-badge');
+            const floatingBar = document.getElementById('compare-floating-bar');
+            const countText = document.getElementById('compare-bar-count');
+
+            if (counterBadge) counterBadge.innerText = compareList.length;
+            if (countText) countText.innerText = `${compareList.length} Machine${compareList.length === 1 ? '' : 's'} Selected`;
+
+            if (compareList.length > 0) {
+                floatingBar.classList.remove('hidden');
+            } else {
+                floatingBar.classList.add('hidden');
+            }
+        }
+
+        function clearComparison() {
+            compareList = [];
+            document.getElementById('compare-floating-bar').classList.add('hidden');
+            filterCatalog();
+        }
+
+        function openCompareModal() {
+            if (compareList.length === 0) {
+                alert('Please select at least 1 machine to compare.');
+                return;
+            }
+
+            const modal = document.getElementById('compare-modal');
+            const table = document.getElementById('compare-table');
+            const allData = getFullMachineryData();
+            const items = allData.filter(m => compareList.includes(m.id));
+
+            table.innerHTML = `
+                <thead>
+                    <tr class="border-b border-lightgreen-400/20 text-lightgreen-400">
+                        <th class="p-3">Features</th>
+                        ${items.map(m => `<th class="p-3 font-extrabold text-white text-base">${m.name}</th>`).join('')}
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-lightgreen-400/10">
+                    <tr>
+                        <td class="p-3 font-bold text-emerald-300">Daily Rental</td>
+                        ${items.map(m => `<td class="p-3 font-black text-lightgreen-400 text-lg">₹${m.dailyRate}/day</td>`).join('')}
+                    </tr>
+                    <tr>
+                        <td class="p-3 font-bold text-emerald-300">Power Rating</td>
+                        ${items.map(m => `<td class="p-3">${m.hp}</td>`).join('')}
+                    </tr>
+                    <tr>
+                        <td class="p-3 font-bold text-emerald-300">Fuel Consumption</td>
+                        ${items.map(m => `<td class="p-3">${m.fuel}</td>`).join('')}
+                    </tr>
+                    <tr>
+                        <td class="p-3 font-bold text-emerald-300">Hub & Distance</td>
+                        ${items.map(m => `<td class="p-3">${m.distance || 'Hub'}</td>`).join('')}
+                    </tr>
+                    <tr>
+                        <td class="p-3 font-bold text-emerald-300">Action</td>
+                        ${items.map(m => `
+                            <td class="p-3">
+                                <button onclick="closeCompareModal(); openBookingModal('${m.id}');" class="bg-lightgreen-400 text-darkgreen-950 font-extrabold px-3.5 py-1.5 rounded-lg text-xs">
+                                    Rent This
+                                </button>
+                            </td>
+                        `).join('')}
+                    </tr>
+                </tbody>
+            `;
+
+            modal.classList.remove('hidden');
+        }
+
+        function closeCompareModal() {
+            document.getElementById('compare-modal').classList.add('hidden');
+        }
+
+
+        // BOOKING MODAL & SUBMIT WORKFLOW
+        function openBookingModal(machineId) {
+            const allData = getFullMachineryData();
+            const m = allData.find(item => item.id === machineId) || allData[0];
+            
+            document.getElementById('bm-machine-id').value = m.id;
+            document.getElementById('bm-title').innerText = 'Book ' + m.name;
+            document.getElementById('bm-subtitle').innerText = `${m.hp} • ${m.distance || 'Hub'}`;
+            
+            updateBookingSummary();
+
+            document.getElementById('booking-form-view').classList.remove('hidden');
+            document.getElementById('booking-receipt-view').classList.add('hidden');
+            document.getElementById('booking-modal').classList.remove('hidden');
+        }
+
+        function closeBookingModal() {
+            document.getElementById('booking-modal').classList.add('hidden');
+        }
+
+        function updateBookingSummary() {
+            const machineId = document.getElementById('bm-machine-id').value;
+            const allData = getFullMachineryData();
+            const m = allData.find(item => item.id === machineId) || allData[0];
+            
+            const days = Number(document.getElementById('bm-duration')?.value || 1);
+            const hasOperator = document.getElementById('bm-operator')?.value === 'yes';
+
+            const base = m.dailyRate * days;
+            const opFee = hasOperator ? (500 * days) : 0;
+            const total = base + opFee;
+
+            document.getElementById('bm-total-cost').innerText = '₹' + total.toLocaleString('en-IN');
+        }
+
+        function submitBooking(e) {
+            e.preventDefault();
+
+            const machineId = document.getElementById('bm-machine-id').value;
+            const allData = getFullMachineryData();
+            const m = allData.find(item => item.id === machineId) || allData[0];
+            
+            const name = document.getElementById('bm-name').value;
+            const location = document.getElementById('bm-location').value;
+            const date = document.getElementById('bm-date').value;
+            const duration = document.getElementById('bm-duration').value;
+            const totalCostStr = document.getElementById('bm-total-cost').innerText;
+            const numericTotal = Number(totalCostStr.replace(/[^0-9]/g, ''));
+
+            const randomId = 'AGRI-2026-' + Math.floor(1000 + Math.random() * 9000);
+
+            // Add to Bookings History & Rental Requests
+            const newBooking = {
+                id: randomId,
+                machineId: m.id,
+                machineName: m.name,
+                date: date,
+                duration: duration,
+                location: location,
+                totalCost: numericTotal,
+                status: 'Confirmed'
+            };
+            bookingsHistory.push(newBooking);
+            localStorage.setItem(STORAGE_BOOKINGS, JSON.stringify(bookingsHistory));
+
+            const newRequest = {
+                id: 'REQ-' + Math.floor(100 + Math.random() * 900),
+                farmerName: name,
+                machineId: m.id,
+                machineName: m.name,
+                dates: `${date} (${duration} Days)`,
+                location: location,
+                totalAmount: numericTotal,
+                status: 'Pending'
+            };
+            rentalRequests.push(newRequest);
+            localStorage.setItem(STORAGE_REQUESTS, JSON.stringify(rentalRequests));
+
+            document.getElementById('rcpt-id').innerText = randomId;
+            document.getElementById('rcpt-machine').innerText = m.name;
+            document.getElementById('rcpt-name').innerText = name;
+            document.getElementById('rcpt-location').innerText = location;
+            document.getElementById('rcpt-total').innerText = totalCostStr;
+
+            document.getElementById('booking-form-view').classList.add('hidden');
+            document.getElementById('booking-receipt-view').classList.remove('hidden');
+
+            triggerNotification("Booking confirmed!", `Reservation ${randomId} for ${m.name} successfully created.`);
+            renderFarmerBookings();
+            renderOwnerDashboard();
+        }
+
+
+        // CHATBOT LOGIC
+        function toggleChatbot() {
+            document.getElementById('chatbot-drawer').classList.toggle('hidden');
+        }
+
+        function sendQuickPrompt(promptText) {
+            document.getElementById('chat-input').value = promptText;
+            handleChatSubmit(new Event('submit'));
+        }
+
+        function handleChatSubmit(e) {
+            if (e) e.preventDefault();
+            const input = document.getElementById('chat-input');
+            const query = input.value.trim();
+            if (!query) return;
+
+            const chatMessages = document.getElementById('chat-messages');
+            chatMessages.innerHTML += `
+                <div class="flex justify-end">
+                    <div class="bg-lightgreen-400 text-darkgreen-950 font-semibold p-3 rounded-2xl rounded-tr-none max-w-[85%]">
+                        ${query}
+                    </div>
+                </div>
+            `;
+            input.value = '';
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            setTimeout(() => {
+                let reply = "I can certainly help with that! AgriRent operates a two-sided marketplace for farmers and equipment owners.";
+                const lower = query.toLowerCase();
+
+                if (lower.includes('tractor') || lower.includes('paddy')) {
+                    reply = "For 5 acres of paddy land, our 50 HP Tractor (₹1,200/day) with a Rotavator (₹950/day) gives 98% match for soil puddling!";
+                } else if (lower.includes('list') || lower.includes('earn')) {
+                    reply = "Switch to <strong>Machine Owner</strong> mode and click <strong>'+ List Your Machinery'</strong> to start earning daily rental income!";
+                }
+
+                chatMessages.innerHTML += `
+                    <div class="flex gap-2.5">
+                        <span class="text-base">🤖</span>
+                        <div class="bg-darkgreen-900/90 border border-lightgreen-400/20 p-3 rounded-2xl rounded-tl-none max-w-[85%] leading-relaxed">
+                            ${reply}
+                        </div>
+                    </div>
+                `;
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 600);
+        }
+
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+
+        function setupScrollReveal() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('reveal-active');
+                    }
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+        }
+    </script>
+
+</body>
+</html>
