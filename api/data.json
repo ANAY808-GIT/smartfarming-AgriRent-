@@ -1,0 +1,243 @@
+{
+  "machinery": [
+    {
+      "id": "tractor",
+      "name": "Heavy Duty Tractor",
+      "category": "tractors",
+      "image": "images/tractor.png",
+      "dailyRate": 1200,
+      "hourlyRate": 200,
+      "status": "Available Now",
+      "statusBg": "bg-lightgreen-400 text-darkgreen-950",
+      "hp": "50 HP Engine",
+      "fuel": "4.5 L/hr",
+      "distance": "3.2 km away",
+      "hub": "Rampur Village Hub",
+      "district": "Rampur",
+      "lat": 28.808,
+      "lon": 79.027,
+      "rating": 4.9,
+      "reviews": 124,
+      "tag": "Tillage & Hauling",
+      "description": "High-torque 50+ HP diesel engine suitable for deep ploughing, disc harrowing, and heavy crop hauling.",
+      "crops": [
+        "paddy",
+        "wheat",
+        "sugarcane",
+        "cotton",
+        "maize",
+        "vegetables"
+      ],
+      "activities": [
+        "tillage",
+        "hauling",
+        "sowing"
+      ],
+      "owner": "Sukhwinder Singh"
+    },
+    {
+      "id": "harvester",
+      "name": "Combine Harvester",
+      "category": "harvesters",
+      "image": "images/harvester.png",
+      "dailyRate": 3500,
+      "hourlyRate": 600,
+      "status": "In High Demand",
+      "statusBg": "bg-earth-400 text-darkgreen-950",
+      "hp": "75 HP Engine",
+      "fuel": "8.0 L/hr",
+      "distance": "5.8 km away",
+      "hub": "Green Valley Hub",
+      "district": "Bareilly",
+      "lat": 28.367,
+      "lon": 79.43,
+      "rating": 4.8,
+      "reviews": 98,
+      "tag": "Grain Harvesting",
+      "description": "Integrated cutting, threshing, winnowing machinery for high-speed paddy and wheat harvesting.",
+      "crops": [
+        "paddy",
+        "wheat",
+        "maize"
+      ],
+      "activities": [
+        "harvesting"
+      ],
+      "owner": "Gurpreet Singh"
+    },
+    {
+      "id": "seeder",
+      "name": "Precision Seed Drill",
+      "category": "sowing",
+      "image": "images/seeder.png",
+      "dailyRate": 800,
+      "hourlyRate": 150,
+      "status": "Available Now",
+      "statusBg": "bg-lightgreen-400 text-darkgreen-950",
+      "hp": "35 HP Req.",
+      "fuel": "2.0 L/hr",
+      "distance": "2.1 km away",
+      "hub": "Kisan Seva Hub",
+      "district": "Moradabad",
+      "lat": 28.838,
+      "lon": 78.773,
+      "rating": 4.7,
+      "reviews": 64,
+      "tag": "Precision Sowing",
+      "description": "Ensures uniform seed depth and distance spacing for max crop germination and reduced seed waste.",
+      "crops": [
+        "wheat",
+        "cotton",
+        "maize",
+        "vegetables"
+      ],
+      "activities": [
+        "sowing"
+      ],
+      "owner": "Ramesh Patel"
+    },
+    {
+      "id": "sprayer",
+      "name": "Power Crop Sprayer",
+      "category": "spraying",
+      "image": "images/sprayer.png",
+      "dailyRate": 600,
+      "hourlyRate": 100,
+      "status": "Booked till Tomorrow",
+      "statusBg": "bg-blue-400 text-darkgreen-950",
+      "hp": "12 HP Engine",
+      "fuel": "1.2 L/hr",
+      "distance": "4.5 km away",
+      "hub": "Kisan Seva Hub",
+      "district": "Moradabad",
+      "lat": 28.838,
+      "lon": 78.773,
+      "rating": 4.9,
+      "reviews": 82,
+      "tag": "Crop Protection",
+      "description": "High-pressure mist sprayer for uniform fertilizer, organic pest control, and liquid nutrient coverage.",
+      "crops": [
+        "paddy",
+        "cotton",
+        "vegetables",
+        "sugarcane"
+      ],
+      "activities": [
+        "spraying"
+      ],
+      "owner": "Balwinder Kumar"
+    },
+    {
+      "id": "rotavator",
+      "name": "Rotary Tiller / Rotavator",
+      "category": "tractors",
+      "image": "images/rotavator.png",
+      "dailyRate": 950,
+      "hourlyRate": 180,
+      "status": "Available Now",
+      "statusBg": "bg-lightgreen-400 text-darkgreen-950",
+      "hp": "45 HP Req.",
+      "fuel": "3.0 L/hr",
+      "distance": "1.8 km away",
+      "hub": "Rampur Village Hub",
+      "district": "Rampur",
+      "lat": 28.808,
+      "lon": 79.027,
+      "rating": 4.8,
+      "reviews": 53,
+      "tag": "Soil Pulverization",
+      "description": "High-speed rotating blades pulverize soil clods into fine seedbeds in a single pass.",
+      "crops": [
+        "paddy",
+        "wheat",
+        "vegetables",
+        "cotton"
+      ],
+      "activities": [
+        "tillage"
+      ],
+      "owner": "Vikram Singh"
+    },
+    {
+      "id": "drone",
+      "name": "Smart AI Drone Sprayer",
+      "category": "spraying",
+      "image": "images/drone.png",
+      "dailyRate": 1500,
+      "hourlyRate": 300,
+      "status": "Available Now",
+      "statusBg": "bg-lightgreen-400 text-darkgreen-950",
+      "hp": "Battery / Auto",
+      "fuel": "Electric",
+      "distance": "3.0 km away",
+      "hub": "AgriTech Hub",
+      "district": "Nainital",
+      "lat": 29.391,
+      "lon": 79.454,
+      "rating": 4.9,
+      "reviews": 41,
+      "tag": "Precision Aerial Spraying",
+      "description": "Autonomous flight path spraying capable of treating 10 acres per hour with millimeter accuracy.",
+      "crops": [
+        "paddy",
+        "wheat",
+        "cotton",
+        "sugarcane",
+        "vegetables"
+      ],
+      "activities": [
+        "spraying"
+      ],
+      "owner": "TechAgri Hub"
+    }
+  ],
+  "bookings": [
+    {
+      "id": "AGRI-2026-8921",
+      "machineId": "tractor",
+      "machineName": "Heavy Duty Tractor",
+      "date": "2026-10-01",
+      "duration": 3,
+      "location": "Rampur North Farm",
+      "farmerName": "Hardeep Verma",
+      "totalCost": 3600,
+      "status": "Confirmed"
+    }
+  ],
+  "requests": [
+    {
+      "id": "REQ-101",
+      "farmerName": "Karan Sharma",
+      "machineId": "tractor",
+      "machineName": "Heavy Duty Tractor (50 HP)",
+      "dates": "Oct 02 - Oct 04 (3 Days)",
+      "location": "Rampur East Farm",
+      "totalAmount": 3600,
+      "status": "Pending"
+    },
+    {
+      "id": "REQ-102",
+      "farmerName": "Manjit Dhillon",
+      "machineId": "harvester",
+      "machineName": "Combine Harvester",
+      "dates": "Oct 05 - Oct 06 (2 Days)",
+      "location": "Bilaspur Road Farm",
+      "totalAmount": 7000,
+      "status": "Accepted"
+    }
+  ],
+  "uploads": [
+    {
+      "fileId": "file_1790273608_1",
+      "filename": "upload_1790273608_test_tractor_thumb.png",
+      "originalName": "test_tractor_thumb.png",
+      "mimeType": "image/png",
+      "size": 70,
+      "originalSize": 70,
+      "compressedSize": 70,
+      "category": "machinery",
+      "url": "/uploads/upload_1790273608_test_tractor_thumb.png",
+      "uploadedAt": "2026-09-24T23:43:28.564391"
+    }
+  ]
+}
